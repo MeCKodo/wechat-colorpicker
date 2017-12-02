@@ -137,7 +137,6 @@
    * @return {SimpleColorPicker} Returns itself for chaining purpose
    */
   SimpleColorPicker.prototype.setColor = function (color) {
-    console.log(color);
     if ( isNumber(color) ) {
       this.inputIsNumber = true;
       color = numberToHex(color);
@@ -153,7 +152,7 @@
     }
 
     this._moveSelectorTo(this.saturationWidth * hsvColor.s, (1 - hsvColor.v) * this.hueHeight);
-    this._moveHueTo((1 - (this.hue / 360)) * this.hueHeight);
+    // this._moveHueTo((1 - (this.hue / 360)) * this.hueHeight);
 
     this._updateHue();
     return this;
@@ -189,7 +188,6 @@
    * @return {SimpleColorPicker} Returns itself for chaining purpose
    */
   SimpleColorPicker.prototype.setBackgroundColor = function (color) {
-    console.log(isNumber(color))
     if ( isNumber(color) ) {
       color = numberToHex(color);
     }
@@ -305,7 +303,6 @@
 
   SimpleColorPicker.prototype._moveHueTo = function (y) {
     this.huePosition = clamp(y, 0, this.maxHue);
-
     this.$hSelector.style.webkitTransform = `translate3d(0,${this.huePosition}px, 0)`;
 
   };

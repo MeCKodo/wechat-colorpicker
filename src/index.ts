@@ -1,10 +1,10 @@
 import './style.css';
 import SimpleColorPicker from './picker/index';
 
-var colorPicker = new SimpleColorPicker({
+const colorPicker = new SimpleColorPicker({
     el: '#box',
-    color: '#123456',
-    background: '#656565'
+    color: '#fff',
+    background: '#fff'
 });
 
 colorPicker.onChange(function(hexStringColor) {
