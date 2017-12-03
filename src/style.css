@@ -30,12 +30,12 @@ body {
 .Scp-sbSelector {
     border: 1px solid #fff !important;
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 7px;
+    height: 7px;
     background: #fff;
     border-radius: 4px;
-    top: -7px;
-    left: -7px;
+    top: -3px;
+    left: -3px;
     box-sizing: border-box;
     z-index: 10;
 }

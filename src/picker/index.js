@@ -3,9 +3,9 @@
 
 (function () {
 
-  var Emitter = require('component-emitter');
-  var tinycolor = require('tinycolor2');
-  var isNumber = val => (typeof val === 'number' || val instanceof Number);
+  const Emitter = require('component-emitter');
+  const tinycolor = require('tinycolor2');
+  const isNumber = val => (typeof val === 'number' || val instanceof Number);
 
   /**
    * Creates a new SimpleColorPicker
@@ -16,10 +16,7 @@
    * @param {Number} options.width Desired width of the color picker. Default is 175.
    * @param {Number} options.height Desired height of the color picker. Default is 150.
    */
-  function SimpleColorPicker (options) {
-    // Options
-    options = options || {};
-
+  function SimpleColorPicker (options = {}) {
     // Properties
     this.color = null;
     this.width = 0;
@@ -44,20 +41,19 @@
 
     // Register window and document references in case this is instantiated inside of an iframe
     this.window = options.window || window;
-    this.document = this.window.document
+    this.document = this.window.document;
 
     // Create DOM
     this.$el = this.document.createElement('div');
     this.$el.className = 'Scp';
-    this.$el.innerHTML = [
-      '<div class="Scp-saturation">',
-      '<div class="Scp-brightness"></div>',
-      '<div class="Scp-sbSelector"></div>',
-      '</div>',
-      '<div class="Scp-hue">',
-      '<div class="Scp-hSelector"></div>',
-      '</div>'
-    ].join('');
+    this.$el.innerHTML = `
+      <div class="Scp-saturation">
+        <div class="Scp-brightness"></div>
+        <div class="Scp-sbSelector"></div>
+      </div>
+      <div class="Scp-hue">
+        <div class="Scp-hSelector"></div>
+      </div>`;
 
     // DOM accessors
     this.$saturation = this.$el.querySelector('.Scp-saturation');
@@ -145,7 +141,7 @@
     }
     this.color = tinycolor(color);
 
-    var hsvColor = this.color.toHsv();
+    const hsvColor = this.color.toHsv();
 
     if ( !isNaN(hsvColor.h) ) {
       this.hue = hsvColor.h;
@@ -308,15 +304,15 @@
   };
 
   SimpleColorPicker.prototype._updateHueFromPosition = function () {
-    var hsvColor = this.color.toHsv();
+    const hsvColor = this.color.toHsv();
     this.hue = 360 * (1 - (this.huePosition / this.maxHue));
     this.color = tinycolor({ h : this.hue, s : hsvColor.s, v : hsvColor.v });
     this._updateHue();
   };
 
   SimpleColorPicker.prototype._updateHue = function () {
-    var hueColor = tinycolor({ h : this.hue, s : 1, v : 1 });
-    this.$saturation.style.background = 'linear-gradient(to right, #fff, ' + hueColor.toHexString() + ')';
+    const hueColor = tinycolor({ h : this.hue, s : 1, v : 1 });
+    this.$saturation.style.background = `linear-gradient(to right, #fff, ${hueColor.toHexString()})`;
     this._updateColor();
   };
 
@@ -330,9 +326,9 @@
     Events handlers
   ============================================================================= */
   SimpleColorPicker.prototype._onSaturationMouseDown = function (e) {
-    var sbOffset = this.$saturation.getBoundingClientRect();
-    var xPos = getMousePosition(e).x;
-    var yPos = getMousePosition(e).y;
+    const sbOffset = this.$saturation.getBoundingClientRect();
+    const xPos = getMousePosition(e).x;
+    const yPos = getMousePosition(e).y;
     this._moveSelectorTo(xPos - sbOffset.left, yPos - sbOffset.top);
     this._updateColorFromPosition();
     this.window.addEventListener('mouseup', this._onSaturationMouseUp);
@@ -343,9 +339,9 @@
   };
 
   SimpleColorPicker.prototype._onSaturationMouseMove = function (e) {
-    var sbOffset = this.$saturation.getBoundingClientRect();
-    var xPos = getMousePosition(e).x;
-    var yPos = getMousePosition(e).y;
+    const sbOffset = this.$saturation.getBoundingClientRect();
+    const xPos = getMousePosition(e).x;
+    const yPos = getMousePosition(e).y;
     this._moveSelectorTo(xPos - sbOffset.left, yPos - sbOffset.top);
     this._updateColorFromPosition();
   };
@@ -358,8 +354,8 @@
   };
 
   SimpleColorPicker.prototype._onHueMouseDown = function (e) {
-    var hOffset = this.$hue.getBoundingClientRect();
-    var yPos = getMousePosition(e).y;
+    const hOffset = this.$hue.getBoundingClientRect();
+    const yPos = getMousePosition(e).y;
     this._moveHueTo(yPos - hOffset.top);
     this._updateHueFromPosition();
     this.window.addEventListener('mouseup', this._onHueMouseUp);
@@ -370,8 +366,8 @@
   };
 
   SimpleColorPicker.prototype._onHueMouseMove = function (e) {
-    var hOffset = this.$hue.getBoundingClientRect();
-    var yPos = getMousePosition(e).y;
+    const hOffset = this.$hue.getBoundingClientRect();
+    const yPos = getMousePosition(e).y;
     this._moveHueTo(yPos - hOffset.top);
     this._updateHueFromPosition();
   };

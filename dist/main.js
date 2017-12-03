@@ -125,7 +125,7 @@ exports = module.exports = __webpack_require__(3)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n    background: #dfdfdf;\n}\n\n.Scp {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    position: relative;\n}\n\n.Scp-saturation {\n    position: relative;\n    height: 100%;\n    background: -webkit-linear-gradient(left, #fff, #f00);\n    background: linear-gradient(to right, #fff, #f00);\n    float: left;\n    margin-right: 5px;\n    cursor: crosshair;\n}\n\n.Scp-brightness {\n    width: 100%;\n    height: 100%;\n    background: -webkit-linear-gradient(rgba(255, 255, 255, 0), #000);\n    background: linear-gradient(rgba(255, 255, 255, 0), #000);\n}\n\n.Scp-sbSelector {\n    border: 1px solid #fff !important;\n    position: absolute;\n    width: 5px;\n    height: 5px;\n    background: #fff;\n    border-radius: 4px;\n    top: -7px;\n    left: -7px;\n    box-sizing: border-box;\n    z-index: 10;\n}\n\n.Scp-hue {\n    width: 20px;\n    height: 100%;\n    position: relative;\n    float: left;\n    /* linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%); */\n    /*background: -webkit-linear-gradient(180deg, #f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);*/\n    background: linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);\n    /*background: linear-gradient(180deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red);*/\n}\n\n.Scp-hSelector {\n    position: absolute;\n    top: 0;\n    left: 0;\n    background: #fff;\n    border-bottom: 1px solid #000;\n    width: 20px;\n    height: 5px;\n    border-radius: 50px;\n}\n\n#box {\n    width:260px;\n    height:310px;\n    background: #fff;\n}", ""]);
+exports.push([module.i, "body {\n    background: #dfdfdf;\n}\n\n.Scp {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    position: relative;\n}\n\n.Scp-saturation {\n    position: relative;\n    height: 100%;\n    background: -webkit-linear-gradient(left, #fff, #f00);\n    background: linear-gradient(to right, #fff, #f00);\n    float: left;\n    margin-right: 5px;\n    cursor: crosshair;\n}\n\n.Scp-brightness {\n    width: 100%;\n    height: 100%;\n    background: -webkit-linear-gradient(rgba(255, 255, 255, 0), #000);\n    background: linear-gradient(rgba(255, 255, 255, 0), #000);\n}\n\n.Scp-sbSelector {\n    border: 1px solid #fff !important;\n    position: absolute;\n    width: 7px;\n    height: 7px;\n    background: #fff;\n    border-radius: 4px;\n    top: -3px;\n    left: -3px;\n    box-sizing: border-box;\n    z-index: 10;\n}\n\n.Scp-hue {\n    width: 20px;\n    height: 100%;\n    position: relative;\n    float: left;\n    /* linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%); */\n    /*background: -webkit-linear-gradient(180deg, #f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);*/\n    background: linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);\n    /*background: linear-gradient(180deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red);*/\n}\n\n.Scp-hSelector {\n    position: absolute;\n    top: 0;\n    left: 0;\n    background: #fff;\n    border-bottom: 1px solid #000;\n    width: 20px;\n    height: 5px;\n    border-radius: 50px;\n}\n\n#box {\n    width:260px;\n    height:310px;\n    background: #fff;\n}", ""]);
 
 // exports
 
@@ -618,7 +618,7 @@ module.exports = function (css) {
     var tinycolor = __webpack_require__(8);
     var isNumber = function (val) { return (typeof val === 'number' || val instanceof Number); };
     function SimpleColorPicker(options) {
-        options = options || {};
+        if (options === void 0) { options = {}; }
         this.color = null;
         this.width = 0;
         this.widthUnits = 'px';
@@ -641,15 +641,7 @@ module.exports = function (css) {
         this.document = this.window.document;
         this.$el = this.document.createElement('div');
         this.$el.className = 'Scp';
-        this.$el.innerHTML = [
-            '<div class="Scp-saturation">',
-            '<div class="Scp-brightness"></div>',
-            '<div class="Scp-sbSelector"></div>',
-            '</div>',
-            '<div class="Scp-hue">',
-            '<div class="Scp-hSelector"></div>',
-            '</div>'
-        ].join('');
+        this.$el.innerHTML = "\n      <div class=\"Scp-saturation\">\n        <div class=\"Scp-brightness\"></div>\n        <div class=\"Scp-sbSelector\"></div>\n      </div>\n      <div class=\"Scp-hue\">\n        <div class=\"Scp-hSelector\"></div>\n      </div>";
         this.$saturation = this.$el.querySelector('.Scp-saturation');
         this.$hue = this.$el.querySelector('.Scp-hue');
         this.$sbSelector = this.$el.querySelector('.Scp-sbSelector');
@@ -780,7 +772,6 @@ module.exports = function (css) {
     };
     SimpleColorPicker.prototype._moveHueTo = function (y) {
         this.huePosition = clamp(y, 0, this.maxHue);
-        console.log(this.huePosition, '----this.huePosition');
         this.$hSelector.style.webkitTransform = "translate3d(0," + this.huePosition + "px, 0)";
     };
     SimpleColorPicker.prototype._updateHueFromPosition = function () {
@@ -791,7 +782,7 @@ module.exports = function (css) {
     };
     SimpleColorPicker.prototype._updateHue = function () {
         var hueColor = tinycolor({ h: this.hue, s: 1, v: 1 });
-        this.$saturation.style.background = 'linear-gradient(to right, #fff, ' + hueColor.toHexString() + ')';
+        this.$saturation.style.background = "linear-gradient(to right, #fff, " + hueColor.toHexString() + ")";
         this._updateColor();
     };
     SimpleColorPicker.prototype._updateColor = function () {
@@ -827,7 +818,6 @@ module.exports = function (css) {
     SimpleColorPicker.prototype._onHueMouseDown = function (e) {
         var hOffset = this.$hue.getBoundingClientRect();
         var yPos = getMousePosition(e).y;
-        console.log(yPos, '---yPos mouseDown');
         this._moveHueTo(yPos - hOffset.top);
         this._updateHueFromPosition();
         this.window.addEventListener('mouseup', this._onHueMouseUp);
@@ -839,7 +829,6 @@ module.exports = function (css) {
     SimpleColorPicker.prototype._onHueMouseMove = function (e) {
         var hOffset = this.$hue.getBoundingClientRect();
         var yPos = getMousePosition(e).y;
-        console.log(yPos, '---yPos mouseMove');
         this._moveHueTo(yPos - hOffset.top);
         this._updateHueFromPosition();
     };
