@@ -1,0 +1,11 @@
+.wechat-base-wrapper {
+    font-size: 0;
+}
+.wechat-base-wrapper span {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 0 4px 4px 0;
+    border: 1px solid #e7e7eb;
+    cursor: pointer;
+}

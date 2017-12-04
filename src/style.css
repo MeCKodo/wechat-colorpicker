@@ -1,7 +1,10 @@
 body {
     background: #dfdfdf;
 }
-
+.wechat-colorpicker {
+    padding: 15px;
+    width: 220px;
+}
 .Scp {
     -webkit-user-select: none;
     -moz-user-select: none;
