@@ -60,89 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__recent_color_index__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_color_index__ = __webpack_require__(7);
-
-
-
-var WeChatColorPicker = (function () {
-    function WeChatColorPicker(options) {
-        this.domWrapper = document.createElement('div');
-        this.domWrapper.className = 'wechat-colorpicker';
-        this.domWrapper.appendChild(new __WEBPACK_IMPORTED_MODULE_1__recent_color_index__["a" /* default */]().dom);
-        this.domWrapper.appendChild(new __WEBPACK_IMPORTED_MODULE_2__base_color_index__["a" /* default */]().dom);
-        if (options.el) {
-            document.querySelector(options.el).appendChild(this.domWrapper);
-        }
-        else {
-            console.error('必须指定el参数');
-        }
-    }
-    return WeChatColorPicker;
-}());
-new WeChatColorPicker({
-    el: '#container'
-});
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(2);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(4)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!./style.css", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!./style.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "body {\n    background: #dfdfdf;\n}\n.wechat-colorpicker {\n    padding: 15px;\n    width: 220px;\n}\n.Scp {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    position: relative;\n}\n\n.Scp-saturation {\n    position: relative;\n    height: 100%;\n    background: -webkit-linear-gradient(left, #fff, #f00);\n    background: linear-gradient(to right, #fff, #f00);\n    float: left;\n    margin-right: 5px;\n    cursor: crosshair;\n}\n\n.Scp-brightness {\n    width: 100%;\n    height: 100%;\n    background: -webkit-linear-gradient(rgba(255, 255, 255, 0), #000);\n    background: linear-gradient(rgba(255, 255, 255, 0), #000);\n}\n\n.Scp-sbSelector {\n    border: 1px solid #fff !important;\n    position: absolute;\n    width: 7px;\n    height: 7px;\n    background: #fff;\n    border-radius: 4px;\n    top: -3px;\n    left: -3px;\n    box-sizing: border-box;\n    z-index: 10;\n}\n\n.Scp-hue {\n    width: 20px;\n    height: 100%;\n    position: relative;\n    float: left;\n    /* linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%); */\n    /*background: -webkit-linear-gradient(180deg, #f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);*/\n    background: linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);\n    /*background: linear-gradient(180deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red);*/\n}\n\n.Scp-hSelector {\n    position: absolute;\n    top: 0;\n    left: 0;\n    background: #fff;\n    border-bottom: 1px solid #000;\n    width: 20px;\n    height: 5px;\n    border-radius: 50px;\n}\n\n#box {\n    width:260px;\n    height:310px;\n    background: #fff;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -207,7 +129,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 4 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -579,6 +501,84 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__recent_color_index__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_color_index__ = __webpack_require__(7);
+
+
+
+var WeChatColorPicker = (function () {
+    function WeChatColorPicker(options) {
+        this.domWrapper = document.createElement('div');
+        this.domWrapper.className = 'wechat-colorpicker';
+        this.domWrapper.appendChild(new __WEBPACK_IMPORTED_MODULE_1__recent_color_index__["a" /* default */]().dom);
+        this.domWrapper.appendChild(new __WEBPACK_IMPORTED_MODULE_2__base_color_index__["a" /* default */]().dom);
+        if (options.el) {
+            document.querySelector(options.el).appendChild(this.domWrapper);
+        }
+        else {
+            console.error('必须指定el参数');
+        }
+    }
+    return WeChatColorPicker;
+}());
+new WeChatColorPicker({
+    el: '#container'
+});
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(4);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!./style.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!./style.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "body {\n    background: #dfdfdf;\n}\n.wechat-colorpicker {\n    padding: 15px;\n    width: 220px;\n}\n.Scp {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    position: relative;\n}\n\n.Scp-saturation {\n    position: relative;\n    height: 100%;\n    background: -webkit-linear-gradient(left, #fff, #f00);\n    background: linear-gradient(to right, #fff, #f00);\n    float: left;\n    margin-right: 5px;\n    cursor: crosshair;\n}\n\n.Scp-brightness {\n    width: 100%;\n    height: 100%;\n    background: -webkit-linear-gradient(rgba(255, 255, 255, 0), #000);\n    background: linear-gradient(rgba(255, 255, 255, 0), #000);\n}\n\n.Scp-sbSelector {\n    border: 1px solid #fff !important;\n    position: absolute;\n    width: 7px;\n    height: 7px;\n    background: #fff;\n    border-radius: 4px;\n    top: -3px;\n    left: -3px;\n    box-sizing: border-box;\n    z-index: 10;\n}\n\n.Scp-hue {\n    width: 20px;\n    height: 100%;\n    position: relative;\n    float: left;\n    /* linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%); */\n    /*background: -webkit-linear-gradient(180deg, #f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);*/\n    background: linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);\n    /*background: linear-gradient(180deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red);*/\n}\n\n.Scp-hSelector {\n    position: absolute;\n    top: 0;\n    left: 0;\n    background: #fff;\n    border-bottom: 1px solid #000;\n    width: 20px;\n    height: 5px;\n    border-radius: 50px;\n}\n\n#box {\n    width:260px;\n    height:310px;\n    background: #fff;\n}", ""]);
+
+// exports
+
+
+/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -658,16 +658,37 @@ var RecentComponent = (function () {
 
 var BaseComponent = (function () {
     function BaseComponent() {
+        this.storagePrefix = '__wx__color__';
         this.baseColorArr = ["ffffff", "ffd7d5", "ffdaa9", "fffed5", "d4fa00", "73fcd6", "a5c8ff", "ffacd5", "ff7faa", "d6d6d6", "ffacaa", "ffb995", "fffb00", "73fa79", "00fcff", "78acfe", "d84fa9", "ff4f79", "b2b2b2", "d7aba9", "ff6827", "ffda51", "00d100", "00d5ff", "0080ff", "ac39ff", "ff2941", "888888", "7a4442", "ff4c00", "ffa900", "3da742", "3daad6", "0052ff", "7a4fd6", "d92142", "000000", "7b0c00", "ff4c41", "d6a841", "407600", "007aaa", "021eaa", "797baa", "ab1942"];
         this.dom = document.createElement('div');
         this.dom.className = 'wechat-base-wrapper';
         this.dom.innerHTML = this.genBaseList();
+        this.dom.addEventListener('click', this.clickHandler.bind(this));
     }
     BaseComponent.prototype.genBaseList = function () {
-        var span = function (color) { return "<span style=\"background: " + color + "\"></span>"; };
+        var span = function (color) { return "<span data-color=\"" + color + "\" style=\"background: " + color + "\"></span>"; };
         return this.baseColorArr.map(function (color) {
             return span("#" + color);
         }).join('');
+    };
+    BaseComponent.prototype.clickHandler = function (e) {
+        var target = e.target;
+        if (target.tagName === 'SPAN') {
+            var ls = window.localStorage;
+            var colorArr = ls.getItem(this.storagePrefix);
+            var color = target.getAttribute('data-color');
+            if (colorArr) {
+                if (colorArr.split(',').length >= 8) {
+                    var temp = colorArr.split(',');
+                    temp.pop();
+                    colorArr = temp.join(',');
+                }
+            }
+            ls.setItem(this.storagePrefix, (!colorArr ? color : color + "," + colorArr));
+        }
+    };
+    BaseComponent.prototype.destory = function () {
+        this.dom.removeEventListener('click', this.clickHandler);
     };
     return BaseComponent;
 }());
@@ -689,7 +710,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(4)(content, options);
+var update = __webpack_require__(1)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -709,7 +730,7 @@ if(false) {
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(undefined);
+exports = module.exports = __webpack_require__(0)(undefined);
 // imports
 
 
