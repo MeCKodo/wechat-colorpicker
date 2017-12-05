@@ -22,7 +22,6 @@ class BaseComponent {
   private clickHandler(e: MouseEvent) {
     const target = <HTMLElement>e.target;
     if (target.tagName === 'SPAN') {
-      // TODO 存localstorage
       const ls = window.localStorage;
       let colorArr:string|null = ls.getItem(this.storagePrefix);
       const color: string = target.getAttribute('data-color')!;
@@ -37,6 +36,7 @@ class BaseComponent {
         this.storagePrefix,
         (!colorArr ? color : `${color},${colorArr}`)
       );
+      // TODO 最近颜色更新DOM
     }
   }
 
