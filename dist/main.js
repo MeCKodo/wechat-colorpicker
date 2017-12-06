@@ -700,7 +700,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".wechat-recent-color p {\n  font-size: 14px;\n  margin:0 0 5px 0;\n  color: #8d8d8d;\n}\n.wechat-clear-color {\n  position: relative;\n  background: #fff;\n}\n.wechat-clear-color:after {\n  content: '';\n  position: absolute;\n  top: -3px;\n  right: 9px;\n  width: 1px;\n  height: 25px;\n  background: red;\n  -webkit-transform: rotate(45deg);\n  transform: rotate(45deg);\n}\n.wechat-recent-color ul {\n  padding: 0;\n  margin: 0;\n}\n.wechat-recent-color li {\n  list-style: none;\n  display: inline-block;\n  width: 18px;\n  height: 18px;\n  margin: 0 4px 4px 0;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".wechat-recent-color p {\n  font-size: 14px;\n  margin:0 0 5px 0;\n  color: #8d8d8d;\n}\n.wechat-clear-color {\n  position: relative;\n  background: #fff;\n}\n.wechat-clear-color:after {\n  content: '';\n  position: absolute;\n  top: -3px;\n  right: 9px;\n  width: 1px;\n  height: 25px;\n  background: red;\n  -webkit-transform: rotate(45deg);\n  transform: rotate(45deg);\n}\n.wechat-recent-color ul {\n  padding: 0;\n  margin: 0;\n  font-size: 0;\n}\n.wechat-recent-color li {\n  list-style: none;\n  display: inline-block;\n  width: 18px;\n  height: 18px;\n  margin: 0 4px 4px 0;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -748,7 +748,7 @@ var BaseComponent = (function () {
                 temp.splice(hasColor, 1);
             }
             temp.unshift(color);
-            if (temp.length >= this.maxColorLen) {
+            if (temp.length > this.maxColorLen) {
                 temp.pop();
             }
             colorArr = temp.join(',');

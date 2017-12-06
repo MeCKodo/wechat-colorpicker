@@ -21,6 +21,7 @@
 .wechat-recent-color ul {
   padding: 0;
   margin: 0;
+  font-size: 0;
 }
 .wechat-recent-color li {
   list-style: none;

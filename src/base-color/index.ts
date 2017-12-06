@@ -45,7 +45,7 @@ class BaseComponent {
         temp.splice(hasColor, 1);
       }
       temp.unshift(color);
-      if (temp.length >= this.maxColorLen) {
+      if (temp.length > this.maxColorLen) {
         temp.pop();
       }
       colorArr = temp.join(',');
