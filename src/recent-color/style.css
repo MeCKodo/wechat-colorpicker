@@ -1,0 +1,33 @@
+.wechat-recent-color p {
+  font-size: 14px;
+  margin:0 0 5px 0;
+  color: #8d8d8d;
+}
+.wechat-clear-color {
+  position: relative;
+  background: #fff;
+}
+.wechat-clear-color:after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: 9px;
+  width: 1px;
+  height: 25px;
+  background: red;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.wechat-recent-color ul {
+  padding: 0;
+  margin: 0;
+}
+.wechat-recent-color li {
+  list-style: none;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin: 0 4px 4px 0;
+  border: 1px solid #e7e7eb;
+  cursor: pointer;
+}

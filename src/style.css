@@ -1,9 +1,11 @@
 body {
-    background: #dfdfdf;
 }
 .wechat-colorpicker {
-    padding: 15px;
+    padding: 20px;
     width: 220px;
+    background: #fff;
+    font-weight: 100;
+    border: 1px solid #e7e7eb;
 }
 .Scp {
     -webkit-user-select: none;

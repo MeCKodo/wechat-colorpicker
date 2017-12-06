@@ -1,3 +1,19 @@
+.wechat-picker-box span {
+    cursor: pointer;
+}
+.wechat-picker-box p {
+    color: #d2d2d2;
+    font-size: 14px;
+}
+.wechat-picker-box p i {
+    font-style: normal;
+    padding: 0 .5em;
+    border-left: 1px solid #e7e7eb;
+}
+.wechat-picker-box p i:first-child {
+    padding-left: 0;
+    border-left-width: 0;
+}
 .wechat-base-wrapper {
     font-size: 0;
 }
@@ -7,5 +23,4 @@
     height: 18px;
     margin: 0 4px 4px 0;
     border: 1px solid #e7e7eb;
-    cursor: pointer;
 }

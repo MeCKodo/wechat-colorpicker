@@ -20,12 +20,13 @@ interface Options {
 
 class WeChatColorPicker {
   private domWrapper = document.createElement('div');
-
+  private recentComponent = new RecentComponent();
+  private baseComponent = new BaseComponent();
   constructor(options: Options) {
 
     this.domWrapper.className = 'wechat-colorpicker';
-    this.domWrapper.appendChild(new RecentComponent().dom);
-    this.domWrapper.appendChild(new BaseComponent().dom);
+    this.domWrapper.appendChild(this.recentComponent.dom);
+    this.domWrapper.appendChild(this.baseComponent.dom);
 
     if (options.el) {
       document.querySelector(options.el)!.appendChild(this.domWrapper);

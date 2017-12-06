@@ -1,30 +1,40 @@
+import './style.css';
+
 class RecentComponent {
 
-  // private maxColorLen:Number = 8;
-  // private storagePrefix:String = '__wx__color__';
-  public dom:HTMLElement = document.createElement('div');
+  private storagePrefix: string = '__wx__color__';
+  public dom: HTMLElement = document.createElement('div');
 
   constructor() {
     this.dom.className = 'wechat-recent-color';
-    this.dom.addEventListener('click', this.clickEvent);
-    this.dom.appendChild(this.genTitleDom());
+    this.dom.addEventListener('click', RecentComponent.getRecentColor);
+    this.dom.innerHTML = `
+                        <p>最近使用颜色</p>
+                        <ul>
+                          <li class="wechat-clear-color"></li>  
+                          ${this.genList()}
+                        </ul>
+                        `;
   }
 
-  private genTitleDom():HTMLElement {
-    const p: HTMLElement = document.createElement('p');
-    p.innerHTML = '最近使用颜色';
-    return p;
-  }
-  private genList():HTMLElement {
-    const ul: HTMLElement = document.createElement('ul');
-
-    return ul;
-  }
-
-  clickEvent(e: MouseEvent) {
-    if((<HTMLElement>e.target).tagName === 'LI') {
-
+  static getRecentColor(e: MouseEvent) {
+    const target = <HTMLElement>e.target;
+    if (target.tagName === 'LI') {
+      if (target.classList.contains('wechat-recent-item')) {
+        alert(target.getAttribute('data-color'));
+      } else {
+        alert('清除颜色');
+      }
     }
+  }
+
+  private genList(): string {
+    const li = color => `<li class="wechat-recent-item" data-color="${color}" style="background: ${color}"></li>`;
+    const ls = window.localStorage;
+    const colorArr: string | null = ls.getItem(this.storagePrefix);
+    return colorArr ?
+          colorArr.split(',').map(color => li(color)).join('') :
+          '';
   }
 
 }
