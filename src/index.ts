@@ -18,8 +18,8 @@ colorPicker.onChange(function(hexStringColor) {
 
 interface Options {
   el: string,
-
   click(color: string): void,
+  clear(): void,
 }
 
 class WeChatColorPicker {
@@ -38,8 +38,8 @@ class WeChatColorPicker {
     this.domWrapper.appendChild(this.recentComponent.dom);
     this.domWrapper.appendChild(this.baseComponent.dom);
 
-    EventBus.on('update', (color) => options.click(color));
-
+    EventBus.on('getColor', (color) => options.click(color));
+    EventBus.on('clearColor', () => options.clear());
     document.querySelector(options.el)!.appendChild(this.domWrapper);
 
   }
@@ -49,6 +49,9 @@ class WeChatColorPicker {
 new WeChatColorPicker({
   el: '#container',
   click(color) {
-    alert('获得的颜色是' + color);
+    console.log('获得的颜色是' + color);
+  },
+  clear() {
+    console.log('清除');
   },
 });

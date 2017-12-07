@@ -571,7 +571,8 @@ var WeChatColorPicker = (function () {
         this.domWrapper.className = 'wechat-colorpicker';
         this.domWrapper.appendChild(this.recentComponent.dom);
         this.domWrapper.appendChild(this.baseComponent.dom);
-        __WEBPACK_IMPORTED_MODULE_3__eventBus__["a" /* default */].on('update', function (color) { return options.click(color); });
+        __WEBPACK_IMPORTED_MODULE_3__eventBus__["a" /* default */].on('getColor', function (color) { return options.click(color); });
+        __WEBPACK_IMPORTED_MODULE_3__eventBus__["a" /* default */].on('clearColor', function () { return options.clear(); });
         document.querySelector(options.el).appendChild(this.domWrapper);
     }
     return WeChatColorPicker;
@@ -579,7 +580,10 @@ var WeChatColorPicker = (function () {
 new WeChatColorPicker({
     el: '#container',
     click: function (color) {
-        alert('获得的颜色是' + color);
+        console.log('获得的颜色是' + color);
+    },
+    clear: function () {
+        console.log('清除');
     },
 });
 
@@ -695,10 +699,10 @@ var RecentComponent = (function () {
         var target = e.target;
         if (target.tagName === 'LI') {
             if (target.classList.contains('wechat-recent-item')) {
-                alert(target.getAttribute('data-color'));
+                __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('getColor', target.getAttribute('data-color'));
             }
             else {
-                alert('清除颜色');
+                __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('clearColor');
             }
         }
     };
@@ -804,7 +808,6 @@ var BaseComponent = (function () {
         if (colorArr) {
             var temp = colorArr.split(',');
             var hasColor = temp.indexOf(color);
-            console.log(temp, hasColor);
             if (hasColor > -1) {
                 temp.splice(hasColor, 1);
             }
@@ -815,7 +818,8 @@ var BaseComponent = (function () {
             colorArr = temp.join(',');
         }
         ls.setItem(this.storagePrefix, colorArr ? colorArr : color);
-        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('update', color);
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('update');
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('getColor', color);
     };
     BaseComponent.switchTab = function (type) {
         if (!type)

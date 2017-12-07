@@ -20,9 +20,9 @@ class RecentComponent {
     const target = <HTMLElement>e.target;
     if (target.tagName === 'LI') {
       if (target.classList.contains('wechat-recent-item')) {
-        alert(target.getAttribute('data-color'));
+        EventBus.emit('getColor', target.getAttribute('data-color'));
       } else {
-        alert('清除颜色');
+        EventBus.emit('clearColor');
       }
     }
   }

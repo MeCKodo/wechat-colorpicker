@@ -41,7 +41,6 @@ class BaseComponent {
     if (colorArr) { // 如果已经存过颜色了，最多不超过8个
       const temp = colorArr.split(',');
       const hasColor = temp.indexOf(color);
-      console.log(temp, hasColor);
       if (hasColor > -1) { // 如果最近已经选过这颜色
         temp.splice(hasColor, 1);
       }
@@ -52,8 +51,8 @@ class BaseComponent {
       colorArr = temp.join(',');
     }
     ls.setItem(this.storagePrefix, colorArr ? colorArr : color);
-    EventBus.emit('update', color);
-
+    EventBus.emit('update');
+    EventBus.emit('getColor', color);
   }
 
   static switchTab(type: string | null) {
