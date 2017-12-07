@@ -1,4 +1,5 @@
 import './style.css';
+import EventBus from '../eventBus';
 
 class BaseComponent {
   private maxColorLen: number = 8;
@@ -51,8 +52,8 @@ class BaseComponent {
       colorArr = temp.join(',');
     }
     ls.setItem(this.storagePrefix, colorArr ? colorArr : color);
-    // TODO 最近颜色更新DOM
-    console.log(color);
+    EventBus.emit('update', color);
+
   }
 
   static switchTab(type: string | null) {

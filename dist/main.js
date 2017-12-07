@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -185,7 +185,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(5);
+var	fixUrls = __webpack_require__(6);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -505,11 +505,57 @@ function updateLink (link, options, obj) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var EventBus = (function () {
+    function EventBus() {
+        this.events = {};
+    }
+    EventBus.prototype.on = function (type, fn) {
+        if (this.events[type]) {
+            this.events[type].push(fn);
+        }
+        else {
+            this.events[type] = [fn];
+        }
+    };
+    EventBus.prototype.emit = function (type) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        if (!this.events[type])
+            return;
+        this.events[type].forEach(function (fn) {
+            fn.apply(void 0, args);
+        });
+    };
+    EventBus.prototype.off = function (type, fn) {
+        var _this = this;
+        var typeArr = this.events[type];
+        if (!typeArr)
+            return;
+        typeArr.forEach(function (cb, index) {
+            if (fn === cb) {
+                _this.events[type].splice(index, 1);
+            }
+        });
+    };
+    return EventBus;
+}());
+/* harmony default export */ __webpack_exports__["a"] = (new EventBus());
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__recent_color_index__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_color_index__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__recent_color_index__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_color_index__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__eventBus__ = __webpack_require__(2);
+
 
 
 
@@ -518,31 +564,34 @@ var WeChatColorPicker = (function () {
         this.domWrapper = document.createElement('div');
         this.recentComponent = new __WEBPACK_IMPORTED_MODULE_1__recent_color_index__["a" /* default */]();
         this.baseComponent = new __WEBPACK_IMPORTED_MODULE_2__base_color_index__["a" /* default */]();
+        if (!options.el) {
+            console.error('必须指定el参数');
+            return;
+        }
         this.domWrapper.className = 'wechat-colorpicker';
         this.domWrapper.appendChild(this.recentComponent.dom);
         this.domWrapper.appendChild(this.baseComponent.dom);
-        if (options.el) {
-            document.querySelector(options.el).appendChild(this.domWrapper);
-        }
-        else {
-            console.error('必须指定el参数');
-        }
+        __WEBPACK_IMPORTED_MODULE_3__eventBus__["a" /* default */].on('update', function (color) { return options.click(color); });
+        document.querySelector(options.el).appendChild(this.domWrapper);
     }
     return WeChatColorPicker;
 }());
 new WeChatColorPicker({
-    el: '#container'
+    el: '#container',
+    click: function (color) {
+        alert('获得的颜色是' + color);
+    },
 });
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(4);
+var content = __webpack_require__(5);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -567,7 +616,7 @@ if(false) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -581,7 +630,7 @@ exports.push([module.i, "body {\n}\n.wechat-colorpicker {\n    padding: 20px;\n 
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -621,20 +670,26 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventBus__ = __webpack_require__(2);
+
 
 var RecentComponent = (function () {
     function RecentComponent() {
+        var _this = this;
         this.storagePrefix = '__wx__color__';
         this.dom = document.createElement('div');
         this.dom.className = 'wechat-recent-color';
         this.dom.addEventListener('click', RecentComponent.getRecentColor);
-        this.dom.innerHTML = "\n                        <p>\u6700\u8FD1\u4F7F\u7528\u989C\u8272</p>\n                        <ul>\n                          <li class=\"wechat-clear-color\"></li>  \n                          " + this.genList() + "\n                        </ul>\n                        ";
+        this.render();
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].on('update', function () {
+            _this.render();
+        });
     }
     RecentComponent.getRecentColor = function (e) {
         var target = e.target;
@@ -655,19 +710,23 @@ var RecentComponent = (function () {
             colorArr.split(',').map(function (color) { return li(color); }).join('') :
             '';
     };
+    RecentComponent.prototype.render = function () {
+        this.dom.innerHTML = "\n                        <p>\u6700\u8FD1\u4F7F\u7528\u989C\u8272</p>\n                        <ul>\n                          <li class=\"wechat-clear-color\"></li>  \n                        </ul>\n                        ";
+        this.dom.querySelector('.wechat-clear-color').insertAdjacentHTML('afterend', this.genList());
+    };
     return RecentComponent;
 }());
 /* harmony default export */ __webpack_exports__["a"] = (RecentComponent);
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(8);
+var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -692,7 +751,7 @@ if(false) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -706,12 +765,14 @@ exports.push([module.i, ".wechat-recent-color p {\n  font-size: 14px;\n  margin:
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventBus__ = __webpack_require__(2);
+
 
 var BaseComponent = (function () {
     function BaseComponent() {
@@ -754,7 +815,7 @@ var BaseComponent = (function () {
             colorArr = temp.join(',');
         }
         ls.setItem(this.storagePrefix, colorArr ? colorArr : color);
-        console.log(color);
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('update', color);
     };
     BaseComponent.switchTab = function (type) {
         if (!type)
@@ -775,13 +836,13 @@ var BaseComponent = (function () {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(11);
+var content = __webpack_require__(12);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -806,7 +867,7 @@ if(false) {
 }
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);

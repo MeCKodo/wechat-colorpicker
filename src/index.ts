@@ -3,6 +3,8 @@ import SimpleColorPicker from './picker/index';
 import RecentComponent from './recent-color/index';
 import BaseComponent from './base-color/index';
 
+import EventBus from './eventBus';
+
 /* const colorPicker = new SimpleColorPicker({
     el: '#box',
     color: '#fff',
@@ -16,26 +18,37 @@ colorPicker.onChange(function(hexStringColor) {
 
 interface Options {
   el: string,
+
+  click(color: string): void,
 }
 
 class WeChatColorPicker {
   private domWrapper = document.createElement('div');
   private recentComponent = new RecentComponent();
   private baseComponent = new BaseComponent();
+
   constructor(options: Options) {
+
+    if (!options.el) {
+      console.error('必须指定el参数');
+      return;
+    }
 
     this.domWrapper.className = 'wechat-colorpicker';
     this.domWrapper.appendChild(this.recentComponent.dom);
     this.domWrapper.appendChild(this.baseComponent.dom);
 
-    if (options.el) {
-      document.querySelector(options.el)!.appendChild(this.domWrapper);
-    } else {
-      console.error('必须指定el参数');
-    }
+    EventBus.on('update', (color) => options.click(color));
+
+    document.querySelector(options.el)!.appendChild(this.domWrapper);
+
   }
+
 }
 
 new WeChatColorPicker({
-  el: '#container'
+  el: '#container',
+  click(color) {
+    alert('获得的颜色是' + color);
+  },
 });

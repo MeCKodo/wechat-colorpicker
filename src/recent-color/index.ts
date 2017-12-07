@@ -1,4 +1,5 @@
 import './style.css';
+import EventBus from '../eventBus';
 
 class RecentComponent {
 
@@ -8,13 +9,11 @@ class RecentComponent {
   constructor() {
     this.dom.className = 'wechat-recent-color';
     this.dom.addEventListener('click', RecentComponent.getRecentColor);
-    this.dom.innerHTML = `
-                        <p>最近使用颜色</p>
-                        <ul>
-                          <li class="wechat-clear-color"></li>  
-                          ${this.genList()}
-                        </ul>
-                        `;
+
+    this.render();
+    EventBus.on('update', () => {
+      this.render();
+    });
   }
 
   static getRecentColor(e: MouseEvent) {
@@ -33,9 +32,20 @@ class RecentComponent {
     const ls = window.localStorage;
     const colorArr: string | null = ls.getItem(this.storagePrefix);
     return colorArr ?
-          colorArr.split(',').map(color => li(color)).join('') :
-          '';
+      colorArr.split(',').map(color => li(color)).join('') :
+      '';
   }
+
+  private render() {
+    this.dom.innerHTML = `
+                        <p>最近使用颜色</p>
+                        <ul>
+                          <li class="wechat-clear-color"></li>  
+                        </ul>
+                        `;
+    this.dom.querySelector('.wechat-clear-color')!.insertAdjacentHTML('afterend', this.genList());
+  }
+
 
 }
 
