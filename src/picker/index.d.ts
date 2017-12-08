@@ -4,7 +4,7 @@ export interface ColorPickerOptions {
   el?: HTMLElement | String;
   width?: number;
   height?: number;
-  onChange(color):void;
+  onChange?(color):void;
 }
 
 export interface ColorPicker {

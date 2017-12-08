@@ -584,9 +584,6 @@ var WeChatColorPicker = (function () {
             new __WEBPACK_IMPORTED_MODULE_1__picker_index__["a" /* default */]({
                 el: '.wechat-picker-box',
                 color: '#000',
-                onChange: function (color) {
-                    options.change(color);
-                },
             });
         });
         __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */].on('getColor', function (color) { return options.click(color); });
@@ -602,9 +599,6 @@ new WeChatColorPicker({
     el: '#container',
     click: function (color) {
         console.log("\u83B7\u5F97\u7684\u57FA\u7840\u989C\u8272\u662F" + color);
-    },
-    change: function (color) {
-        console.log("picker\u9009\u62E9\u7684\u989C\u8272\u662F" + color);
     },
     clear: function () {
         console.log('清除');
@@ -755,7 +749,7 @@ function SimpleColorPicker(options) {
     }
     this.setSize(options.width || 220, options.height || 150);
     this.setColor(options.color);
-    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].on('changeColor', options.onChange);
+    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].on('changeColor', options.onChange || function () { });
     return this;
 }
 SimpleColorPicker.prototype.appendTo = function (el) {

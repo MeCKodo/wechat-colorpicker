@@ -78,7 +78,7 @@ function SimpleColorPicker (options = {}) {
   }
   this.setSize(options.width || 220, options.height || 150);
   this.setColor(options.color);
-  EventBus.on('changeColor', options.onChange);
+  EventBus.on('changeColor', options.onChange || function() {});
   return this;
 }
 

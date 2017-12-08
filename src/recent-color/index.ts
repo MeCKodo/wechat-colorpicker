@@ -28,7 +28,7 @@ class RecentComponent {
         temp.splice(hasColor, 1);
       }
       temp.unshift(color);
-      if (temp.length > this.maxColorLen) {
+      if (temp.length > this.maxColorLen) { // 不超过8个
         temp.pop();
       }
       colorArr = temp.join(',');
