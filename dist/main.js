@@ -2029,6 +2029,8 @@ exports.push([module.i, ".wechat-recent-color p {\n  font-size: 14px;\n  margin:
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventBus__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__events_type__ = __webpack_require__(3);
+
 
 
 var BaseComponent = (function () {
@@ -2054,13 +2056,13 @@ var BaseComponent = (function () {
     };
     BaseComponent.selectColor = function (target) {
         var color = target.getAttribute('data-color');
-        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('update', color);
-        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('getColor', color);
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["e" /* UPDATE_RECENT */], color);
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["d" /* GET_COLOR */], color);
     };
     BaseComponent.switchTab = function (type) {
         if (!type)
             return;
-        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('changeTab', type === 'base' ? 'base-color' : 'more-color');
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["b" /* CHANGE_TAB */], type === 'base' ? 'base-color' : 'more-color');
     };
     BaseComponent.prototype.destory = function () {
         this.dom.removeEventListener('click', BaseComponent.clickHandler.bind(this));
@@ -2196,7 +2198,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.wechat-picker-toolbar {\n  padding: 15px 0 0;\n}\n\n.wechat-picker-toolbar i {\n  float: left;\n  width: 24px;\n  height: 24px;\n  margin-right: 6px;\n  background: #f00;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}\n.wechat-picker-toolbar div {\n  position: relative;\n  display: inline-block;\n  width: 98px;\n  height: 24px;\n  padding: 0 5px;\n  border: 1px solid #e7e7eb;\n}\n.wechat-picker-toolbar div span {\n  position: absolute;\n  top: 2px;\n  font-size: 14px;\n  color: #222;\n  font-weight: 400;\n}\n.wechat-picker-toolbar div input {\n  outline: 0;\n  width: 60px;\n  border: 0;\n  margin: 0 0 0 10px;\n  color: #222;\n  font-size: 14px;\n}\n.wechat-picker-toolbar button {\n  float: right;\n  margin-left: 6px;\n  padding: 0 20px;\n  height: 26px;\n  line-height: 26px;\n  border-radius: 3px;\n  -moz-border-radius: 3px;\n  -webkit-border-radius: 3px;\n  font-size: 14px;\n  cursor: pointer;\n  border: 1px solid #e7e7eb;\n  background-color: #fff;\n  color: #222;\n  outline: 0;\n}\n.wechat-picker-toolbar button:hover {\n  border: 1px solid #dadbe0;\n}", ""]);
+exports.push([module.i, "\n.wechat-picker-toolbar {\n  padding: 15px 0 0;\n}\n\n.wechat-picker-toolbar i {\n  float: left;\n  width: 24px;\n  height: 24px;\n  margin-right: 6px;\n  background: #000;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}\n.wechat-picker-toolbar div {\n  position: relative;\n  display: inline-block;\n  width: 98px;\n  height: 24px;\n  padding: 0 5px;\n  border: 1px solid #e7e7eb;\n}\n.wechat-picker-toolbar div span {\n  position: absolute;\n  top: 2px;\n  font-size: 14px;\n  color: #222;\n  font-weight: 400;\n}\n.wechat-picker-toolbar div input {\n  outline: 0;\n  width: 60px;\n  border: 0;\n  margin: 0 0 0 10px;\n  color: #222;\n  font-size: 14px;\n}\n.wechat-picker-toolbar button {\n  float: right;\n  margin-left: 6px;\n  padding: 0 20px;\n  height: 26px;\n  line-height: 26px;\n  border-radius: 3px;\n  -moz-border-radius: 3px;\n  -webkit-border-radius: 3px;\n  font-size: 14px;\n  cursor: pointer;\n  border: 1px solid #e7e7eb;\n  background-color: #fff;\n  color: #222;\n  outline: 0;\n}\n.wechat-picker-toolbar button:hover {\n  border: 1px solid #dadbe0;\n}", ""]);
 
 // exports
 
