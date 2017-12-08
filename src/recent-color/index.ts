@@ -1,10 +1,11 @@
 import './style.css';
 import EventBus from '../eventBus';
+import { UPDATE_RECENT, GET_COLOR, CLEAR_COLOR } from '../events-type';
 
 class RecentComponent {
 
   private maxColorLen: number = 8;
-  private storagePrefix: string = '__wx__color__';
+  private storagePrefix: string = '__wechat__picker__color__';
   public dom: HTMLElement = document.createElement('div');
 
   constructor() {
@@ -12,7 +13,7 @@ class RecentComponent {
     this.dom.addEventListener('click', RecentComponent.getRecentColor);
 
     this.render();
-    EventBus.on('update', (color) => {
+    EventBus.on(UPDATE_RECENT, (color) => {
       this.setRecentColor(color);
       this.render();
     });
@@ -40,9 +41,9 @@ class RecentComponent {
     const target = <HTMLElement>e.target;
     if (target.tagName === 'LI') {
       if (target.classList.contains('wechat-recent-item')) {
-        EventBus.emit('getColor', target.getAttribute('data-color'));
+        EventBus.emit(GET_COLOR, target.getAttribute('data-color'));
       } else {
-        EventBus.emit('clearColor');
+        EventBus.emit(CLEAR_COLOR);
       }
     }
   }

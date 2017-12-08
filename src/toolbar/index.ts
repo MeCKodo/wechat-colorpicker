@@ -1,5 +1,6 @@
 import './style.css';
 import EventBus from '../eventBus';
+import { CHANGE_COLOR, UPDATE_RECENT } from '../events-type';
 
 class Toolbar {
   public dom: HTMLElement = document.createElement('div');
@@ -20,14 +21,14 @@ class Toolbar {
   }
 
   private setColor() {
-    EventBus.on('changeColor', (color) => {
+    EventBus.on(CHANGE_COLOR, (color) => {
       this.i.style.background = color;
       this.input.value = color.substr(1);
     });
   }
 
   private clickButton() {
-    EventBus.emit('update', `#${this.input.value}`);
+    EventBus.emit(UPDATE_RECENT, `#${this.input.value}`);
   }
 
   private render() {

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -229,7 +229,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(6);
+var	fixUrls = __webpack_require__(7);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -549,14 +549,33 @@ function updateLink (link, options, obj) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CHANGE_TAB; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CHANGE_COLOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_RECENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return GET_COLOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLEAR_COLOR; });
+var CHANGE_TAB = 'CHANGE_TAB';
+var CHANGE_COLOR = 'CHANGE_COLOR';
+var UPDATE_RECENT = 'UPDATE_RECENT';
+var GET_COLOR = 'GET_COLOR';
+var CLEAR_COLOR = 'CLEAR_COLOR';
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__picker_index__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__recent_color_index__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_color_index__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__toolbar_index__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__picker_index__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__recent_color_index__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_color_index__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__toolbar_index__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__eventBus__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__events_type__ = __webpack_require__(3);
+
 
 
 
@@ -586,9 +605,9 @@ var WeChatColorPicker = (function () {
                 color: '#000',
             });
         });
-        __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */].on('getColor', function (color) { return options.click(color); });
-        __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */].on('clearColor', function () { return options.clear(); });
-        __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */].on('changeTab', function (type) {
+        __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */].on(__WEBPACK_IMPORTED_MODULE_6__events_type__["d" /* GET_COLOR */], function (color) { return options.click(color); });
+        __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */].on(__WEBPACK_IMPORTED_MODULE_6__events_type__["c" /* CLEAR_COLOR */], function () { return options.clear(); });
+        __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */].on(__WEBPACK_IMPORTED_MODULE_6__events_type__["b" /* CHANGE_TAB */], function (type) {
             _this.domWrapper.className = "wechat-colorpicker " + type;
         });
         document.querySelector(options.el).appendChild(this.domWrapper);
@@ -607,13 +626,13 @@ new WeChatColorPicker({
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(6);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -638,7 +657,7 @@ if(false) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(undefined);
@@ -652,7 +671,7 @@ exports.push([module.i, "body {\n}\n.wechat-colorpicker {\n    padding: 20px;\n 
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -692,13 +711,15 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventBus__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinycolor2__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_tinycolor2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinycolor2__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_tinycolor2__);
+
 
 
 var isNumber = function (val) { return (typeof val === 'number' || val instanceof Number); };
@@ -749,7 +770,7 @@ function SimpleColorPicker(options) {
     }
     this.setSize(options.width || 220, options.height || 150);
     this.setColor(options.color);
-    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].on('changeColor', options.onChange || function () { });
+    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].on(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], options.onChange || function () { });
     return this;
 }
 SimpleColorPicker.prototype.appendTo = function (el) {
@@ -781,7 +802,7 @@ SimpleColorPicker.prototype.setColor = function (color) {
     else {
         this.inputIsNumber = false;
     }
-    this.color = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()(color);
+    this.color = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()(color);
     var hsvColor = this.color.toHsv();
     if (!isNaN(hsvColor.h)) {
         this.hue = hsvColor.h;
@@ -805,7 +826,7 @@ SimpleColorPicker.prototype.setBackgroundColor = function (color) {
     if (isNumber(color)) {
         color = numberToHex(color);
     }
-    this.$el.style.background = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()(color).toHexString();
+    this.$el.style.background = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()(color).toHexString();
     return this;
 };
 SimpleColorPicker.prototype.setNoBackground = function () {
@@ -813,7 +834,7 @@ SimpleColorPicker.prototype.setNoBackground = function () {
     this.$el.style.background = 'none';
 };
 SimpleColorPicker.prototype.onChange = function () {
-    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].emit('changeColor', this.getHexString());
+    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.getHexString());
     return this;
 };
 SimpleColorPicker.prototype.getColor = function () {
@@ -846,7 +867,7 @@ SimpleColorPicker.prototype._moveSelectorTo = function (x, y) {
     this.$sbSelector.style.webkitTransform = "translate3d(" + this.position.x + "px, " + this.position.y + "px, 0)";
 };
 SimpleColorPicker.prototype._updateColorFromPosition = function () {
-    this.color = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()({
+    this.color = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()({
         h: this.hue,
         s: this.position.x / this.saturationWidth,
         v: 1 - (this.position.y / this.hueHeight)
@@ -860,18 +881,18 @@ SimpleColorPicker.prototype._moveHueTo = function (y) {
 SimpleColorPicker.prototype._updateHueFromPosition = function () {
     var hsvColor = this.color.toHsv();
     this.hue = 360 * (1 - (this.huePosition / this.maxHue));
-    this.color = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()({ h: this.hue, s: hsvColor.s, v: hsvColor.v });
+    this.color = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()({ h: this.hue, s: hsvColor.s, v: hsvColor.v });
     this._updateHue();
 };
 SimpleColorPicker.prototype._updateHue = function () {
-    var hueColor = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()({ h: this.hue, s: 1, v: 1 });
+    var hueColor = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()({ h: this.hue, s: 1, v: 1 });
     this.$saturation.style.background = "linear-gradient(to right, #fff, " + hueColor.toHexString() + ")";
     this._updateColor();
 };
 SimpleColorPicker.prototype._updateColor = function () {
     this.$sbSelector.style.background = this.color.toHexString();
     this.$sbSelector.style.borderColor = this.color.isDark() ? '#fff' : '#000';
-    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].emit('changeColor', this.color.toHexString());
+    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.color.toHexString());
 };
 SimpleColorPicker.prototype._onSaturationMouseDown = function (e) {
     var sbOffset = this.$saturation.getBoundingClientRect();
@@ -938,7 +959,7 @@ function numberToHex(color) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1885,25 +1906,27 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventBus__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__events_type__ = __webpack_require__(3);
+
 
 
 var RecentComponent = (function () {
     function RecentComponent() {
         var _this = this;
         this.maxColorLen = 8;
-        this.storagePrefix = '__wx__color__';
+        this.storagePrefix = '__wechat__picker__color__';
         this.dom = document.createElement('div');
         this.dom.className = 'wechat-recent-color';
         this.dom.addEventListener('click', RecentComponent.getRecentColor);
         this.render();
-        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].on('update', function (color) {
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].on(__WEBPACK_IMPORTED_MODULE_2__events_type__["e" /* UPDATE_RECENT */], function (color) {
             _this.setRecentColor(color);
             _this.render();
         });
@@ -1929,10 +1952,10 @@ var RecentComponent = (function () {
         var target = e.target;
         if (target.tagName === 'LI') {
             if (target.classList.contains('wechat-recent-item')) {
-                __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('getColor', target.getAttribute('data-color'));
+                __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["d" /* GET_COLOR */], target.getAttribute('data-color'));
             }
             else {
-                __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('clearColor');
+                __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["c" /* CLEAR_COLOR */]);
             }
         }
     };
@@ -1954,13 +1977,13 @@ var RecentComponent = (function () {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(11);
+var content = __webpack_require__(12);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1985,7 +2008,7 @@ if(false) {
 }
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(undefined);
@@ -1999,11 +2022,11 @@ exports.push([module.i, ".wechat-recent-color p {\n  font-size: 14px;\n  margin:
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventBus__ = __webpack_require__(0);
 
@@ -2048,13 +2071,13 @@ var BaseComponent = (function () {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(14);
+var content = __webpack_require__(15);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -2079,7 +2102,7 @@ if(false) {
 }
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(undefined);
@@ -2093,13 +2116,15 @@ exports.push([module.i, ".wechat-picker-box {\n    padding: 0 0 12px;\n    borde
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventBus__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__events_type__ = __webpack_require__(3);
+
 
 
 var Toolbar = (function () {
@@ -2115,13 +2140,13 @@ var Toolbar = (function () {
     }
     Toolbar.prototype.setColor = function () {
         var _this = this;
-        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].on('changeColor', function (color) {
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].on(__WEBPACK_IMPORTED_MODULE_2__events_type__["a" /* CHANGE_COLOR */], function (color) {
             _this.i.style.background = color;
             _this.input.value = color.substr(1);
         });
     };
     Toolbar.prototype.clickButton = function () {
-        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('update', "#" + this.input.value);
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["e" /* UPDATE_RECENT */], "#" + this.input.value);
     };
     Toolbar.prototype.render = function () {
         this.dom.innerHTML = "\n                        <i></i>\n                        <div><span>#</span><input maxlength=\"6\" type=\"text\"></div>\n                        <button>\u786E\u8BA4</button>\n                        ";
@@ -2132,13 +2157,13 @@ var Toolbar = (function () {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(17);
+var content = __webpack_require__(18);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -2163,7 +2188,7 @@ if(false) {
 }
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(undefined);

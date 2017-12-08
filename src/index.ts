@@ -5,14 +5,7 @@ import BaseComponent from './base-color/index';
 import ToolBarComponent from './toolbar/index';
 
 import EventBus from './eventBus';
-
-/**
- * changeTab 事件 切换基本色和更多颜色
- * changeColor 事件 picker选择颜色
- * update 事件 更新 最近使用的颜色
- * getColor 事件 点击获取当前颜色
- * clearColor 事件 触发清除颜色事件
- */
+import { CHANGE_TAB, CLEAR_COLOR, GET_COLOR } from './events-type';
 
 interface Options {
   el: string;
@@ -50,9 +43,9 @@ class WeChatColorPicker {
       });
     });
 
-    EventBus.on('getColor', (color) => options.click(color));
-    EventBus.on('clearColor', () => options.clear());
-    EventBus.on('changeTab', (type) => {
+    EventBus.on(GET_COLOR, (color) => options.click(color));
+    EventBus.on(CLEAR_COLOR, () => options.clear());
+    EventBus.on(CHANGE_TAB, (type) => {
       this.domWrapper.className = `wechat-colorpicker ${type}`;
     });
 

@@ -1,5 +1,6 @@
 // https://github.com/superguigui/simple-color-picker 魔改
 import EventBus from '../eventBus';
+import { CHANGE_COLOR } from '../events-type';
 import tinycolor from 'tinycolor2';
 const isNumber = val => (typeof val === 'number' || val instanceof Number);
 
@@ -78,7 +79,7 @@ function SimpleColorPicker (options = {}) {
   }
   this.setSize(options.width || 220, options.height || 150);
   this.setColor(options.color);
-  EventBus.on('changeColor', options.onChange || function() {});
+  EventBus.on(CHANGE_COLOR, options.onChange || function() {});
   return this;
 }
 
@@ -204,7 +205,7 @@ SimpleColorPicker.prototype.setNoBackground = function () {
  * @return {SimpleColorPicker} Returns itself for chaining purpose
  */
 SimpleColorPicker.prototype.onChange = function () {
-  EventBus.emit('changeColor', this.getHexString());
+  EventBus.emit(CHANGE_COLOR, this.getHexString());
   return this;
 };
 
@@ -312,7 +313,7 @@ SimpleColorPicker.prototype._updateHue = function () {
 SimpleColorPicker.prototype._updateColor = function () {
   this.$sbSelector.style.background = this.color.toHexString();
   this.$sbSelector.style.borderColor = this.color.isDark() ? '#fff' : '#000';
-  EventBus.emit('changeColor', this.color.toHexString());
+  EventBus.emit(CHANGE_COLOR, this.color.toHexString());
 };
 
 /* =============================================================================
