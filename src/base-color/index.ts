@@ -2,8 +2,6 @@ import './style.css';
 import EventBus from '../eventBus';
 
 class BaseComponent {
-  private maxColorLen: number = 8;
-  private storagePrefix: string = '__wx__color__';
   private baseColorArr: string[] = ["ffffff", "ffd7d5", "ffdaa9", "fffed5", "d4fa00", "73fcd6", "a5c8ff", "ffacd5", "ff7faa", "d6d6d6", "ffacaa", "ffb995", "fffb00", "73fa79", "00fcff", "78acfe", "d84fa9", "ff4f79", "b2b2b2", "d7aba9", "ff6827", "ffda51", "00d100", "00d5ff", "0080ff", "ac39ff", "ff2941", "888888", "7a4442", "ff4c00", "ffa900", "3da742", "3daad6", "0052ff", "7a4fd6", "d92142", "000000", "7b0c00", "ff4c41", "d6a841", "407600", "007aaa", "021eaa", "797baa", "ab1942"];
 
   private genBaseList(): string {
@@ -22,22 +20,22 @@ class BaseComponent {
                           ${this.genBaseList()}
                         </div>`;
 
-    this.dom.addEventListener('click', this.clickHandler.bind(this));
+    this.dom.addEventListener('click', BaseComponent.clickHandler.bind(this));
   }
 
-  private clickHandler(e: MouseEvent) {
+  static clickHandler(e: MouseEvent) {
     const target = <HTMLElement>e.target;
     if (target.tagName === 'SPAN') {
-      this.selectColor(target);
+      BaseComponent.selectColor(target);
     } else if (target.tagName === 'I') {
       BaseComponent.switchTab(target.getAttribute('data-type'));
     }
   }
 
-  private selectColor(target: HTMLElement) {
-    const ls = window.localStorage;
-    let colorArr: string | null = ls.getItem(this.storagePrefix);
+  static selectColor(target: HTMLElement) {
     const color: string = target.getAttribute('data-color')!;
+    /* const ls = window.localStorage;
+    let colorArr: string | null = ls.getItem(this.storagePrefix);
     if (colorArr) { // 如果已经存过颜色了，最多不超过8个
       const temp = colorArr.split(',');
       const hasColor = temp.indexOf(color);
@@ -50,8 +48,8 @@ class BaseComponent {
       }
       colorArr = temp.join(',');
     }
-    ls.setItem(this.storagePrefix, colorArr ? colorArr : color);
-    EventBus.emit('update');
+    ls.setItem(this.storagePrefix, colorArr ? colorArr : color); */
+    EventBus.emit('update', color);
     EventBus.emit('getColor', color);
   }
 
@@ -61,7 +59,7 @@ class BaseComponent {
   }
 
   public destory() {
-    this.dom.removeEventListener('click', this.clickHandler.bind(this));
+    this.dom.removeEventListener('click', BaseComponent.clickHandler.bind(this));
   }
 
 }

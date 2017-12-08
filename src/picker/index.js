@@ -78,7 +78,7 @@ function SimpleColorPicker (options = {}) {
   }
   this.setSize(options.width || 220, options.height || 150);
   this.setColor(options.color);
-  EventBus.on('update', options.onChange);
+  EventBus.on('changeColor', options.onChange);
   return this;
 }
 
@@ -204,7 +204,7 @@ SimpleColorPicker.prototype.setNoBackground = function () {
  * @return {SimpleColorPicker} Returns itself for chaining purpose
  */
 SimpleColorPicker.prototype.onChange = function () {
-  EventBus.emit('update', this.getHexString());
+  EventBus.emit('changeColor', this.getHexString());
   return this;
 };
 
@@ -312,7 +312,7 @@ SimpleColorPicker.prototype._updateHue = function () {
 SimpleColorPicker.prototype._updateColor = function () {
   this.$sbSelector.style.background = this.color.toHexString();
   this.$sbSelector.style.borderColor = this.color.isDark() ? '#fff' : '#000';
-  EventBus.emit('update', this.color.toHexString());
+  EventBus.emit('changeColor', this.color.toHexString());
 };
 
 /* =============================================================================

@@ -3,6 +3,7 @@ import EventBus from '../eventBus';
 
 class RecentComponent {
 
+  private maxColorLen: number = 8;
   private storagePrefix: string = '__wx__color__';
   public dom: HTMLElement = document.createElement('div');
 
@@ -11,9 +12,28 @@ class RecentComponent {
     this.dom.addEventListener('click', RecentComponent.getRecentColor);
 
     this.render();
-    EventBus.on('update', () => {
+    EventBus.on('update', (color) => {
+      this.setRecentColor(color);
       this.render();
     });
+  }
+
+  private setRecentColor(color) {
+    const ls = window.localStorage;
+    let colorArr: string | null = ls.getItem(this.storagePrefix);
+    if (colorArr) { // 如果已经存过颜色了，最多不超过8个
+      const temp = colorArr.split(',');
+      const hasColor = temp.indexOf(color);
+      if (hasColor > -1) { // 如果最近已经选过这颜色
+        temp.splice(hasColor, 1);
+      }
+      temp.unshift(color);
+      if (temp.length > this.maxColorLen) {
+        temp.pop();
+      }
+      colorArr = temp.join(',');
+    }
+    ls.setItem(this.storagePrefix, colorArr ? colorArr : color);
   }
 
   static getRecentColor(e: MouseEvent) {

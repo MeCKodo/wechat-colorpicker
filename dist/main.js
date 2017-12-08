@@ -555,7 +555,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__picker_index__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__recent_color_index__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_color_index__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__eventBus__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__toolbar_index__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__eventBus__ = __webpack_require__(0);
+
 
 
 
@@ -567,6 +569,7 @@ var WeChatColorPicker = (function () {
         this.domWrapper = document.createElement('div');
         this.recentComponent = new __WEBPACK_IMPORTED_MODULE_2__recent_color_index__["a" /* default */]();
         this.baseComponent = new __WEBPACK_IMPORTED_MODULE_3__base_color_index__["a" /* default */]();
+        this.toolbarComponent = new __WEBPACK_IMPORTED_MODULE_4__toolbar_index__["a" /* default */]();
         if (!options.el) {
             console.error('必须指定el参数');
             return;
@@ -574,20 +577,21 @@ var WeChatColorPicker = (function () {
         var dogFrg = document.createDocumentFragment();
         dogFrg.appendChild(this.recentComponent.dom);
         dogFrg.appendChild(this.baseComponent.dom);
+        dogFrg.appendChild(this.toolbarComponent.dom);
         this.domWrapper.className = 'wechat-colorpicker base-color';
         this.domWrapper.appendChild(dogFrg);
         setTimeout(function () {
-            var colorPicker = new __WEBPACK_IMPORTED_MODULE_1__picker_index__["a" /* default */]({
+            new __WEBPACK_IMPORTED_MODULE_1__picker_index__["a" /* default */]({
                 el: '.wechat-picker-box',
-                color: '#fff',
+                color: '#000',
                 onChange: function (color) {
-                    console.log(color);
-                }
+                    options.change(color);
+                },
             });
         });
-        __WEBPACK_IMPORTED_MODULE_4__eventBus__["a" /* default */].on('getColor', function (color) { return options.click(color); });
-        __WEBPACK_IMPORTED_MODULE_4__eventBus__["a" /* default */].on('clearColor', function () { return options.clear(); });
-        __WEBPACK_IMPORTED_MODULE_4__eventBus__["a" /* default */].on('changeTab', function (type) {
+        __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */].on('getColor', function (color) { return options.click(color); });
+        __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */].on('clearColor', function () { return options.clear(); });
+        __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */].on('changeTab', function (type) {
             _this.domWrapper.className = "wechat-colorpicker " + type;
         });
         document.querySelector(options.el).appendChild(this.domWrapper);
@@ -751,7 +755,7 @@ function SimpleColorPicker(options) {
     }
     this.setSize(options.width || 220, options.height || 150);
     this.setColor(options.color);
-    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].on('update', options.onChange);
+    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].on('changeColor', options.onChange);
     return this;
 }
 SimpleColorPicker.prototype.appendTo = function (el) {
@@ -815,7 +819,7 @@ SimpleColorPicker.prototype.setNoBackground = function () {
     this.$el.style.background = 'none';
 };
 SimpleColorPicker.prototype.onChange = function () {
-    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].emit('update', this.getHexString());
+    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].emit('changeColor', this.getHexString());
     return this;
 };
 SimpleColorPicker.prototype.getColor = function () {
@@ -873,7 +877,7 @@ SimpleColorPicker.prototype._updateHue = function () {
 SimpleColorPicker.prototype._updateColor = function () {
     this.$sbSelector.style.background = this.color.toHexString();
     this.$sbSelector.style.borderColor = this.color.isDark() ? '#fff' : '#000';
-    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].emit('update', this.color.toHexString());
+    __WEBPACK_IMPORTED_MODULE_0__eventBus__["a" /* default */].emit('changeColor', this.color.toHexString());
 };
 SimpleColorPicker.prototype._onSaturationMouseDown = function (e) {
     var sbOffset = this.$saturation.getBoundingClientRect();
@@ -1899,15 +1903,34 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 var RecentComponent = (function () {
     function RecentComponent() {
         var _this = this;
+        this.maxColorLen = 8;
         this.storagePrefix = '__wx__color__';
         this.dom = document.createElement('div');
         this.dom.className = 'wechat-recent-color';
         this.dom.addEventListener('click', RecentComponent.getRecentColor);
         this.render();
-        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].on('update', function () {
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].on('update', function (color) {
+            _this.setRecentColor(color);
             _this.render();
         });
     }
+    RecentComponent.prototype.setRecentColor = function (color) {
+        var ls = window.localStorage;
+        var colorArr = ls.getItem(this.storagePrefix);
+        if (colorArr) {
+            var temp = colorArr.split(',');
+            var hasColor = temp.indexOf(color);
+            if (hasColor > -1) {
+                temp.splice(hasColor, 1);
+            }
+            temp.unshift(color);
+            if (temp.length > this.maxColorLen) {
+                temp.pop();
+            }
+            colorArr = temp.join(',');
+        }
+        ls.setItem(this.storagePrefix, colorArr ? colorArr : color);
+    };
     RecentComponent.getRecentColor = function (e) {
         var target = e.target;
         if (target.tagName === 'LI') {
@@ -1993,45 +2016,28 @@ exports.push([module.i, ".wechat-recent-color p {\n  font-size: 14px;\n  margin:
 
 var BaseComponent = (function () {
     function BaseComponent() {
-        this.maxColorLen = 8;
-        this.storagePrefix = '__wx__color__';
         this.baseColorArr = ["ffffff", "ffd7d5", "ffdaa9", "fffed5", "d4fa00", "73fcd6", "a5c8ff", "ffacd5", "ff7faa", "d6d6d6", "ffacaa", "ffb995", "fffb00", "73fa79", "00fcff", "78acfe", "d84fa9", "ff4f79", "b2b2b2", "d7aba9", "ff6827", "ffda51", "00d100", "00d5ff", "0080ff", "ac39ff", "ff2941", "888888", "7a4442", "ff4c00", "ffa900", "3da742", "3daad6", "0052ff", "7a4fd6", "d92142", "000000", "7b0c00", "ff4c41", "d6a841", "407600", "007aaa", "021eaa", "797baa", "ab1942"];
         this.dom = document.createElement('div');
         this.dom.className = 'wechat-picker-box';
         this.dom.innerHTML = "<p>\n                          <i data-type=\"base\">\u57FA\u672C\u8272</i><i data-type=\"more\">\u66F4\u591A\u989C\u8272</i>\n                        </p>\n                        <div class=\"wechat-base-wrapper\">\n                          " + this.genBaseList() + "\n                        </div>";
-        this.dom.addEventListener('click', this.clickHandler.bind(this));
+        this.dom.addEventListener('click', BaseComponent.clickHandler.bind(this));
     }
     BaseComponent.prototype.genBaseList = function () {
         var span = function (color) { return "<span data-color=\"" + color + "\" style=\"background: " + color + "\"></span>"; };
         return this.baseColorArr.map(function (color) { return span("#" + color); }).join('');
     };
-    BaseComponent.prototype.clickHandler = function (e) {
+    BaseComponent.clickHandler = function (e) {
         var target = e.target;
         if (target.tagName === 'SPAN') {
-            this.selectColor(target);
+            BaseComponent.selectColor(target);
         }
         else if (target.tagName === 'I') {
             BaseComponent.switchTab(target.getAttribute('data-type'));
         }
     };
-    BaseComponent.prototype.selectColor = function (target) {
-        var ls = window.localStorage;
-        var colorArr = ls.getItem(this.storagePrefix);
+    BaseComponent.selectColor = function (target) {
         var color = target.getAttribute('data-color');
-        if (colorArr) {
-            var temp = colorArr.split(',');
-            var hasColor = temp.indexOf(color);
-            if (hasColor > -1) {
-                temp.splice(hasColor, 1);
-            }
-            temp.unshift(color);
-            if (temp.length > this.maxColorLen) {
-                temp.pop();
-            }
-            colorArr = temp.join(',');
-        }
-        ls.setItem(this.storagePrefix, colorArr ? colorArr : color);
-        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('update');
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('update', color);
         __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('getColor', color);
     };
     BaseComponent.switchTab = function (type) {
@@ -2040,7 +2046,7 @@ var BaseComponent = (function () {
         __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('changeTab', type === 'base' ? 'base-color' : 'more-color');
     };
     BaseComponent.prototype.destory = function () {
-        this.dom.removeEventListener('click', this.clickHandler.bind(this));
+        this.dom.removeEventListener('click', BaseComponent.clickHandler.bind(this));
     };
     return BaseComponent;
 }());
@@ -2088,6 +2094,90 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 // module
 exports.push([module.i, ".wechat-picker-box {\n    padding: 0 0 12px;\n    border-bottom: 1px dotted #e7e7eb;\n}\n.wechat-picker-box span {\n    cursor: pointer;\n}\n.wechat-picker-box p {\n    color: #d2d2d2;\n    font-size: 14px;\n}\n.wechat-picker-box p i {\n    font-style: normal;\n    padding: 0 .5em;\n    border-left: 1px solid #e7e7eb;\n}\n.wechat-picker-box p i:first-child {\n    padding-left: 0;\n    border-left-width: 0;\n}\n.wechat-base-wrapper {\n    font-size: 0;\n}\n.wechat-base-wrapper span {\n    display: inline-block;\n    width: 18px;\n    height: 18px;\n    margin: 0 4px 4px 0;\n    border: 1px solid #e7e7eb;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventBus__ = __webpack_require__(0);
+
+
+var Toolbar = (function () {
+    function Toolbar() {
+        this.dom = document.createElement('div');
+        this.dom.className = 'wechat-picker-toolbar';
+        this.render();
+        this.i = this.dom.querySelector('i');
+        this.input = this.dom.querySelector('input');
+        this.button = this.dom.querySelector('button');
+        this.setColor();
+        this.button.addEventListener('click', this.clickButton.bind(this));
+    }
+    Toolbar.prototype.setColor = function () {
+        var _this = this;
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].on('changeColor', function (color) {
+            _this.i.style.background = color;
+            _this.input.value = color.substr(1);
+        });
+    };
+    Toolbar.prototype.clickButton = function () {
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit('update', "#" + this.input.value);
+    };
+    Toolbar.prototype.render = function () {
+        this.dom.innerHTML = "\n                        <i></i>\n                        <div><span>#</span><input maxlength=\"6\" type=\"text\"></div>\n                        <button>\u786E\u8BA4</button>\n                        ";
+    };
+    return Toolbar;
+}());
+/* harmony default export */ __webpack_exports__["a"] = (Toolbar);
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(17);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(2)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!./style.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!./style.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.wechat-picker-toolbar {\n  padding: 15px 0 0;\n}\n\n.wechat-picker-toolbar i {\n  float: left;\n  width: 24px;\n  height: 24px;\n  margin-right: 6px;\n  background: #f00;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}\n.wechat-picker-toolbar div {\n  position: relative;\n  display: inline-block;\n  width: 98px;\n  height: 24px;\n  padding: 0 5px;\n  border: 1px solid #e7e7eb;\n}\n.wechat-picker-toolbar div span {\n  position: absolute;\n  top: 2px;\n  font-size: 14px;\n  color: #222;\n  font-weight: 400;\n}\n.wechat-picker-toolbar div input {\n  outline: 0;\n  width: 60px;\n  border: 0;\n  margin: 0 0 0 10px;\n  color: #222;\n  font-size: 14px;\n}\n.wechat-picker-toolbar button {\n  float: right;\n  margin-left: 6px;\n  padding: 0 20px;\n  height: 26px;\n  line-height: 26px;\n  border-radius: 3px;\n  -moz-border-radius: 3px;\n  -webkit-border-radius: 3px;\n  font-size: 14px;\n  cursor: pointer;\n  border: 1px solid #e7e7eb;\n  background-color: #fff;\n  color: #222;\n  outline: 0;\n}\n.wechat-picker-toolbar button:hover {\n  border: 1px solid #dadbe0;\n}", ""]);
 
 // exports
 

@@ -1,9 +1,15 @@
 import './style.css';
-import SimpleColorPicker from './picker/index';
+import Picker from './picker/index';
 import RecentComponent from './recent-color/index';
 import BaseComponent from './base-color/index';
+import ToolBarComponent from './toolbar/index';
 
 import EventBus from './eventBus';
+
+/**
+ * changeTab 事件 切换基本色和更多颜色
+ * changeColor 事件 picker选择颜色
+ */
 
 interface Options {
   el: string,
@@ -16,6 +22,7 @@ class WeChatColorPicker {
   private domWrapper = document.createElement('div');
   private recentComponent = new RecentComponent();
   private baseComponent = new BaseComponent();
+  private toolbarComponent = new ToolBarComponent();
 
   constructor(options: Options) {
 
@@ -27,18 +34,19 @@ class WeChatColorPicker {
     const dogFrg = document.createDocumentFragment();
     dogFrg.appendChild(this.recentComponent.dom);
     dogFrg.appendChild(this.baseComponent.dom);
+    dogFrg.appendChild(this.toolbarComponent.dom);
 
     this.domWrapper.className = 'wechat-colorpicker base-color';
     this.domWrapper.appendChild(dogFrg);
 
     // 下一个tick再初始化
     setTimeout(() => {
-      const colorPicker = new SimpleColorPicker({
+      new Picker({
         el: '.wechat-picker-box',
-        color: '#fff',
+        color: '#000',
         onChange(color) {
-          console.log(color);
-        }
+         options.change(color);
+        },
       });
     });
 
