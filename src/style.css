@@ -7,7 +7,19 @@ body {
     font-weight: 100;
     border: 1px solid #e7e7eb;
 }
-.Scp {
+.wechat-colorpicker.base-color .wechat-picker-box i:first-child {
+    color: #8d8d8d;
+}
+.wechat-colorpicker.more-color .wechat-picker-box i:last-child {
+    color: #8d8d8d;
+}
+.wechat-colorpicker.base-color .wechat-picker {
+    display: none;
+}
+.wechat-colorpicker.more-color .wechat-base-wrapper {
+    display: none;
+}
+.wechat-picker {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -15,24 +27,24 @@ body {
     position: relative;
 }
 
-.Scp-saturation {
+.wechat-picker-saturation {
     position: relative;
     height: 100%;
     background: -webkit-linear-gradient(left, #fff, #f00);
     background: linear-gradient(to right, #fff, #f00);
     float: left;
-    margin-right: 5px;
+    margin-right: 10px;
     cursor: crosshair;
 }
 
-.Scp-brightness {
+.wechat-picker-brightness {
     width: 100%;
     height: 100%;
     background: -webkit-linear-gradient(rgba(255, 255, 255, 0), #000);
     background: linear-gradient(rgba(255, 255, 255, 0), #000);
 }
 
-.Scp-sbSelector {
+.wechat-picker-sbSelector {
     border: 1px solid #fff !important;
     position: absolute;
     width: 7px;
@@ -45,18 +57,16 @@ body {
     z-index: 10;
 }
 
-.Scp-hue {
+.wechat-picker-hue {
     width: 20px;
     height: 100%;
     position: relative;
     float: left;
-    /* linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%); */
-    /*background: -webkit-linear-gradient(180deg, #f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);*/
+    background: -webkit-linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);
     background: linear-gradient(#f00 0%, #f0f 17%, #00f 34%, #0ff 50%, #0f0 67%, #ff0 84%, #f00 100%);
-    /*background: linear-gradient(180deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red);*/
 }
 
-.Scp-hSelector {
+.wechat-picker-hSelector {
     position: absolute;
     top: 0;
     left: 0;
@@ -65,10 +75,4 @@ body {
     width: 20px;
     height: 5px;
     border-radius: 50px;
-}
-
-#box {
-    width:260px;
-    height:310px;
-    background: #fff;
 }

@@ -57,13 +57,7 @@ class BaseComponent {
 
   static switchTab(type: string | null) {
     if (!type) return;
-    if (type === 'base') {
-      // TODO 切换base
-      console.log('TODO 切换base');
-    } else if (type === 'more') {
-      // TODO 切换picker
-      console.log('TODO 切换picker');
-    }
+    EventBus.emit('changeTab', type === 'base' ? 'base-color' : 'more-color');
   }
 
   public destory() {

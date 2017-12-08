@@ -1,3 +1,7 @@
+.wechat-picker-box {
+    padding: 0 0 12px;
+    border-bottom: 1px dotted #e7e7eb;
+}
 .wechat-picker-box span {
     cursor: pointer;
 }

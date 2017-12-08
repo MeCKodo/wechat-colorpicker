@@ -5,20 +5,10 @@ import BaseComponent from './base-color/index';
 
 import EventBus from './eventBus';
 
-/* const colorPicker = new SimpleColorPicker({
-    el: '#box',
-    color: '#fff',
-    background: '#fff'
-});
-
-colorPicker.onChange(function(hexStringColor) {
-    document.body.style.backgroundColor = hexStringColor;
-    // document.querySelector('h1 a').style.color = colorPicker.color.isDark() ? '#FFFFFF' : '#000000';
-}); */
-
 interface Options {
   el: string,
   click(color: string): void,
+  change(color: string): void,
   clear(): void,
 }
 
@@ -34,12 +24,30 @@ class WeChatColorPicker {
       return;
     }
 
-    this.domWrapper.className = 'wechat-colorpicker';
-    this.domWrapper.appendChild(this.recentComponent.dom);
-    this.domWrapper.appendChild(this.baseComponent.dom);
+    const dogFrg = document.createDocumentFragment();
+    dogFrg.appendChild(this.recentComponent.dom);
+    dogFrg.appendChild(this.baseComponent.dom);
+
+    this.domWrapper.className = 'wechat-colorpicker base-color';
+    this.domWrapper.appendChild(dogFrg);
+
+    // 下一个tick再初始化
+    setTimeout(() => {
+      const colorPicker = new SimpleColorPicker({
+        el: '.wechat-picker-box',
+        color: '#fff',
+        onChange(color) {
+          console.log(color);
+        }
+      });
+    });
 
     EventBus.on('getColor', (color) => options.click(color));
     EventBus.on('clearColor', () => options.clear());
+    EventBus.on('changeTab', (type) => {
+      this.domWrapper.className = `wechat-colorpicker ${type}`;
+    });
+
     document.querySelector(options.el)!.appendChild(this.domWrapper);
 
   }
@@ -49,7 +57,10 @@ class WeChatColorPicker {
 new WeChatColorPicker({
   el: '#container',
   click(color) {
-    console.log('获得的颜色是' + color);
+    console.log(`获得的基础颜色是${color}`);
+  },
+  change(color) {
+    console.log(`picker选择的颜色是${color}`);
   },
   clear() {
     console.log('清除');

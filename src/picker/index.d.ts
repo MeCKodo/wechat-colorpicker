@@ -1,41 +1,42 @@
 export interface ColorPickerOptions {
-    color?: string | number;
-    background?: string | number;
-    el?: HTMLElement | String;
-    width?: number;
-    height?: number;
+  color?: string | number;
+  background?: string | number;
+  el?: HTMLElement | String;
+  width?: number;
+  height?: number;
+  onChange(color):void;
 }
 
 export interface ColorPicker {
-    new (options?: ColorPickerOptions): ColorPicker;
+  new (options?: ColorPickerOptions): ColorPicker;
 
-    appendTo(domElement: HTMLElement | String): void;
+  appendTo(domElement: HTMLElement | String): void;
 
-    remove(): void;
+  remove(): void;
 
-    setColor(color: string | number): void;
+  setColor(color: string | number): void;
 
-    setSize(width: number, height: number): void;
+  setSize(width: number, height: number): void;
 
-    setBackgroundColor(color: string | number): void;
+  setBackgroundColor(color: string | number): void;
 
-    setNoBackground(): void;
+  setNoBackground(): void;
 
-    onChange(callback: Function): void;
+  onChange(callback: Function): void;
 
-    getColor(): string | number;
+  getColor(): string | number;
 
-    getHexString(): string;
+  getHexString(): string;
 
-    getHexNumber(): number;
+  getHexNumber(): number;
 
-    getRGB(): { r: number, g: number, b: number };
+  getRGB(): { r: number, g: number, b: number };
 
-    getHSV(): { h: number, s: number, v: number };
+  getHSV(): { h: number, s: number, v: number };
 
-    isDark(): boolean;
+  isDark(): boolean;
 
-    isLight(): boolean;
+  isLight(): boolean;
 }
 
 export var ColorPicker: ColorPicker;
