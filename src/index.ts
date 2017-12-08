@@ -1,4 +1,4 @@
-import './style.css';
+// import './style.css';
 import Picker from './picker/index';
 import RecentComponent from './recent-color/index';
 import BaseComponent from './base-color/index';
@@ -55,6 +55,9 @@ class WeChatColorPicker {
 
 }
 
+export default WeChatColorPicker;
+
+/*
 new WeChatColorPicker({
   el: '#container',
   click(color) {
@@ -63,4 +66,4 @@ new WeChatColorPicker({
   clear() {
     console.log('清除');
   },
-});
+});*/
