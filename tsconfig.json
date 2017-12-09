@@ -34,11 +34,6 @@
     "allowJs": true,
     "baseUrl": "./",
     // typescript 语法检测支持的版本库，注意不是 polyfill！只是为了有对应版本的代码特性提示！
-    "paths": {
-      "simple-color-picker": [
-        "node_modules/simple-color-picker/src/index"
-      ]
-    },
     "lib": [
       "es2015",
       "es2016",

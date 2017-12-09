@@ -7,5 +7,4 @@ test('test new instance', () => {
   const instance = newInstance();
   expect(instance.baseComponent.baseColorArr).toEqual(baseColorArr);
   expect($('.wechat-colorpicker')).not.toBeNull();
-  expect(instance).not.toBeNull();
 });
