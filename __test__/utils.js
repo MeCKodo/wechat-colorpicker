@@ -3,10 +3,10 @@ import WeChatColorPicker from '../src';
 export const pickerOptions = {
   el: '#container',
   click(color) {
-    console.log(`获得的基础颜色是${color}`);
+    // console.log(`获得的基础颜色是${color}`);
   },
   clear() {
-    console.log('清除');
+    // console.log('清除');
   },
 };
 
