@@ -614,7 +614,8 @@ var WeChatColorPicker = (function () {
     }
     return WeChatColorPicker;
 }());
-new WeChatColorPicker({
+/* harmony default export */ __webpack_exports__["default"] = (WeChatColorPicker);
+var i = new WeChatColorPicker({
     el: '#container',
     click: function (color) {
         console.log("\u83B7\u5F97\u7684\u57FA\u7840\u989C\u8272\u662F" + color);
@@ -623,6 +624,7 @@ new WeChatColorPicker({
         console.log('清除');
     },
 });
+console.log(i);
 
 
 /***/ }),
