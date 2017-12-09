@@ -1,3 +1,3 @@
 interface Window {
-  WeChatColorPicker?: any;
+  WeChatColorPicker: Object;
 }
