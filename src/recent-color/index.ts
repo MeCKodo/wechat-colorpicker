@@ -49,7 +49,10 @@ class RecentComponent {
   }
 
   private genList(): string {
-    const li = color => `<li class="wechat-recent-item" data-color="${color}" style="background: ${color}"></li>`;
+    const li = color => `<li class="wechat-recent-item" 
+                              data-color="${color}" 
+                              style="background: ${color}">
+                        </li>`;
     const ls = window.localStorage;
     const colorArr: string | null = ls.getItem(this.storagePrefix);
     return colorArr ?

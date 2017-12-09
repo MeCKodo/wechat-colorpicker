@@ -12,6 +12,12 @@ module.exports = {
   module : {
     rules : [
       {
+        test: /\.ts$/,
+        enforce: 'pre',
+        loader: 'tslint-loader',
+        options: { /* Loader options go here */ }
+      },
+      {
         test : /\.js|ts$/,
         loader : 'awesome-typescript-loader',
       }, {

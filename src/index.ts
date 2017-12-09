@@ -3,7 +3,6 @@ import Picker from './picker/index';
 import RecentComponent from './recent-color/index';
 import BaseComponent from './base-color/index';
 import ToolBarComponent from './toolbar/index';
-
 import EventBus from './eventBus';
 import { CHANGE_TAB, CLEAR_COLOR, GET_COLOR } from './events-type';
 
@@ -43,7 +42,7 @@ class WeChatColorPicker {
       });
     });
 
-    EventBus.on(GET_COLOR, (color) => options.click(color));
+    EventBus.on(GET_COLOR, color => options.click(color));
     EventBus.on(CLEAR_COLOR, () => options.clear());
     EventBus.on(CHANGE_TAB, (type) => {
       this.domWrapper.className = `wechat-colorpicker ${type}`;

@@ -10,7 +10,10 @@ class EventBus {
   }
 
   public emit(type: string, ...args) {
-    if (!this.events[type]) return;
+    if (!this.events[type]) {
+      return;
+    }
+
     this.events[type].forEach((fn) => {
       fn(...args);
     });
@@ -18,12 +21,15 @@ class EventBus {
 
   public off(type: string, fn) {
     const typeArr = this.events[type];
-    if (!typeArr) return;
+    if (!typeArr) {
+      return;
+    }
+
     typeArr.forEach((cb, index) => {
       if (fn === cb) {
         this.events[type].splice(index, 1);
       }
-    })
+    });
   }
 
 }
