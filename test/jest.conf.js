@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  verbose: true,
   globals: {
     NODE_ENV: 'test',
   },
