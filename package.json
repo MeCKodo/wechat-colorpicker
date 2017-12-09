@@ -4,7 +4,7 @@
   "description": "weui colorpicker ",
   "main": "index.js",
   "scripts": {
-    "test": "jest --config test/jest.conf.js",
+    "test": "jest --config ./__test__/jest.conf.js",
     "dev": "webpack -w"
   },
   "repository": {
