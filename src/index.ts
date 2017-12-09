@@ -55,4 +55,8 @@ class WeChatColorPicker {
 
 }
 
+if (window) {
+  window.WeChatColorPicker = WeChatColorPicker;
+}
+
 export default WeChatColorPicker;
