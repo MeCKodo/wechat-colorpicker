@@ -1,6 +1,6 @@
 import './style.css';
 import EventBus from '../eventBus';
-import { CHANGE_COLOR, UPDATE_RECENT } from '../events-type';
+import { CHANGE_COLOR, UPDATE_RECENT, GET_COLOR } from '../events-type';
 
 class Toolbar {
   public dom: HTMLElement = document.createElement('div');
@@ -34,6 +34,7 @@ class Toolbar {
       return;
     }
     EventBus.emit(UPDATE_RECENT, color);
+    EventBus.emit(GET_COLOR, color);
   }
 
   private onChange() {
