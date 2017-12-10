@@ -5,6 +5,7 @@
     background: #fff;
     font-weight: 100;
     border: 1px solid #e7e7eb;
+    text-align: left;
 }
 .wechat-colorpicker.base-color .wechat-picker-box i:first-child {
     color: #8d8d8d;

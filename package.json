@@ -1,11 +1,12 @@
 {
   "name": "wechat-colorpicker",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "weui colorpicker ",
   "main": "dist/main.js",
   "scripts": {
     "test": "jest --config ./__test__/jest.conf.js",
-    "dev": "webpack -w"
+    "dev": "webpack -w",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
