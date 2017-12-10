@@ -2136,6 +2136,7 @@ var Toolbar = (function () {
         this.button = this.dom.querySelector('button');
         this.setColor();
         this.button.addEventListener('click', this.clickButton.bind(this));
+        this.input.addEventListener('input', this.onChange.bind(this));
     }
     Toolbar.prototype.setColor = function () {
         var _this = this;
@@ -2145,7 +2146,14 @@ var Toolbar = (function () {
         });
     };
     Toolbar.prototype.clickButton = function () {
-        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["e" /* UPDATE_RECENT */], "#" + this.input.value);
+        var color = "#" + this.input.value;
+        if (!/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/.test(color)) {
+            return;
+        }
+        __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["e" /* UPDATE_RECENT */], color);
+    };
+    Toolbar.prototype.onChange = function () {
+        this.i.style.backgroundColor = "#" + this.input.value;
     };
     Toolbar.prototype.render = function () {
         this.dom.innerHTML = "\n                        <i></i>\n                        <div><span>#</span><input maxlength=\"6\" type=\"text\"></div>\n                        <button>\u786E\u8BA4</button>\n                        ";

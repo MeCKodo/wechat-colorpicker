@@ -18,6 +18,7 @@ class Toolbar {
 
     this.setColor();
     this.button.addEventListener('click', this.clickButton.bind(this));
+    this.input.addEventListener('input', this.onChange.bind(this));
   }
 
   private setColor() {
@@ -28,7 +29,15 @@ class Toolbar {
   }
 
   private clickButton() {
-    EventBus.emit(UPDATE_RECENT, `#${this.input.value}`);
+    const color = `#${this.input.value}`;
+    if (!/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/.test(color)) {
+      return;
+    }
+    EventBus.emit(UPDATE_RECENT, color);
+  }
+
+  private onChange() {
+    this.i.style.backgroundColor = `#${this.input.value}`;
   }
 
   private render() {
