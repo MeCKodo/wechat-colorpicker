@@ -49,6 +49,11 @@ class Toolbar {
                         `;
   }
 
+  public destroy() {
+    this.button.removeEventListener('click', this.clickButton.bind(this));
+    this.input.removeEventListener('input', this.onChange.bind(this));
+  }
+
 }
 
 export default Toolbar;

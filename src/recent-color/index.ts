@@ -71,6 +71,10 @@ class RecentComponent {
   }
 
 
+  public destroy() {
+    this.dom.removeEventListener('click', RecentComponent.getRecentColor);
+  }
+
 }
 
 export default RecentComponent;

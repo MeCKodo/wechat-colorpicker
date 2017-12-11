@@ -22,7 +22,7 @@ class BaseComponent {
                           ${this.genBaseList()}
                         </div>`;
 
-    this.dom.addEventListener('click', BaseComponent.clickHandler.bind(this));
+    this.dom.addEventListener('click', BaseComponent.clickHandler);
   }
 
   static clickHandler(e: MouseEvent) {
@@ -45,8 +45,8 @@ class BaseComponent {
     EventBus.emit(CHANGE_TAB, type === 'base' ? 'base-color' : 'more-color');
   }
 
-  public destory() {
-    this.dom.removeEventListener('click', BaseComponent.clickHandler.bind(this));
+  public destroy() {
+    this.dom.removeEventListener('click', BaseComponent.clickHandler);
   }
 
 }

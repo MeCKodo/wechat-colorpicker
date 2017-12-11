@@ -31,10 +31,24 @@
     </div>
   </div>-->
 </div>
+<div id="box"></div>
 <script src="./dist/main.js"></script>
 <script>
-  new WeChatColorPicker({
+  const w = new WeChatColorPicker({
     el: '#container',
+    click(color) {
+      alert(`获得的基础颜色是${color}`);
+    },
+    clear() {
+      alert('清除');
+    },
+  });
+  setTimeout(() => {
+    w.destroy();
+  }, 3000)
+
+  const wx = new WeChatColorPicker({
+    el: '#box',
     click(color) {
       alert(`获得的基础颜色是${color}`);
     },

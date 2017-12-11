@@ -624,6 +624,14 @@ var WeChatColorPicker = (function () {
         });
         document.querySelector(options.el).appendChild(this.domWrapper);
     }
+    WeChatColorPicker.prototype.destroy = function () {
+        this.recentComponent.destroy();
+        this.baseComponent.destroy();
+        this.toolbarComponent.destroy();
+        if (this.domWrapper.parentElement) {
+            this.domWrapper.parentElement.removeChild(this.domWrapper);
+        }
+    };
     return WeChatColorPicker;
 }());
 if (window) {
@@ -1978,6 +1986,9 @@ var RecentComponent = (function () {
         this.dom.innerHTML = "\n                        <p>\u6700\u8FD1\u4F7F\u7528\u989C\u8272</p>\n                        <ul>\n                          <li class=\"wechat-clear-color\"></li>  \n                        </ul>\n                        ";
         this.dom.querySelector('.wechat-clear-color').insertAdjacentHTML('afterend', this.genList());
     };
+    RecentComponent.prototype.destroy = function () {
+        this.dom.removeEventListener('click', RecentComponent.getRecentColor);
+    };
     return RecentComponent;
 }());
 /* harmony default export */ __webpack_exports__["a"] = (RecentComponent);
@@ -2046,7 +2057,7 @@ var BaseComponent = (function () {
         this.dom = document.createElement('div');
         this.dom.className = 'wechat-picker-box';
         this.dom.innerHTML = "<p>\n                          <i data-type=\"base\">\u57FA\u672C\u8272</i><i data-type=\"more\">\u66F4\u591A\u989C\u8272</i>\n                        </p>\n                        <div class=\"wechat-base-wrapper\">\n                          " + this.genBaseList() + "\n                        </div>";
-        this.dom.addEventListener('click', BaseComponent.clickHandler.bind(this));
+        this.dom.addEventListener('click', BaseComponent.clickHandler);
     }
     BaseComponent.prototype.genBaseList = function () {
         var span = function (color) { return "<span data-color=\"" + color + "\" style=\"background: " + color + "\"></span>"; };
@@ -2071,8 +2082,8 @@ var BaseComponent = (function () {
             return;
         __WEBPACK_IMPORTED_MODULE_1__eventBus__["a" /* default */].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["b" /* CHANGE_TAB */], type === 'base' ? 'base-color' : 'more-color');
     };
-    BaseComponent.prototype.destory = function () {
-        this.dom.removeEventListener('click', BaseComponent.clickHandler.bind(this));
+    BaseComponent.prototype.destroy = function () {
+        this.dom.removeEventListener('click', BaseComponent.clickHandler);
     };
     return BaseComponent;
 }());
@@ -2168,6 +2179,10 @@ var Toolbar = (function () {
     };
     Toolbar.prototype.render = function () {
         this.dom.innerHTML = "\n                        <i></i>\n                        <div><span>#</span><input maxlength=\"6\" type=\"text\"></div>\n                        <button>\u786E\u8BA4</button>\n                        ";
+    };
+    Toolbar.prototype.destroy = function () {
+        this.button.removeEventListener('click', this.clickButton.bind(this));
+        this.input.removeEventListener('input', this.onChange.bind(this));
     };
     return Toolbar;
 }());

@@ -8,13 +8,16 @@ import { CHANGE_TAB, CLEAR_COLOR, GET_COLOR } from './events-type';
 
 interface Options {
   el: string;
+
   click(color: string): void;
+
   clear(): void;
+
   change?(color: string): void;
 }
 
 class WeChatColorPicker {
-  private domWrapper = document.createElement('div');
+  private domWrapper: HTMLElement = document.createElement('div');
   private recentComponent = new RecentComponent();
   private baseComponent = new BaseComponent();
   private toolbarComponent = new ToolBarComponent();
@@ -50,6 +53,16 @@ class WeChatColorPicker {
 
     document.querySelector(options.el)!.appendChild(this.domWrapper);
 
+  }
+
+  public destroy() {
+    this.recentComponent.destroy();
+    this.baseComponent.destroy();
+    this.toolbarComponent.destroy();
+
+    if (this.domWrapper.parentElement) {
+      this.domWrapper.parentElement.removeChild(this.domWrapper);
+    }
   }
 
 }
