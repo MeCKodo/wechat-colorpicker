@@ -5,7 +5,7 @@
 ## 栗子
 
 ```javascript
-new WeChatColorPicker({
+const example = new WeChatColorPicker({
   el: '#container', // 插入的dom
   click(color) {
     console.log(`获得的基础颜色是${color}`);
@@ -17,6 +17,11 @@ new WeChatColorPicker({
     console.log('清除');
   },
 });
+
+example.destroy();
+
 ```
 
 ## MIT
+
+MIT LICENSE
