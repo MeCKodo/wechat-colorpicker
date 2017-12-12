@@ -1,5 +1,5 @@
 // https://github.com/superguigui/simple-color-picker 魔改
-import EventBus from '../eventBus';
+import { EventBus } from '../index';
 import { CHANGE_COLOR } from '../events-type';
 import tinycolor from 'tinycolor2';
 const isNumber = val => (typeof val === 'number' || val instanceof Number);
@@ -112,8 +112,6 @@ SimpleColorPicker.prototype.remove = function () {
   this.$saturation.removeEventListener('touchstart', this._onSaturationMouseDown);
   this.$hue.removeEventListener('mousedown', this._onHueMouseDown);
   this.$hue.removeEventListener('touchstart', this._onHueMouseDown);
-
-  this.off();
 
   if ( this.$el.parentNode ) {
     this.$el.parentNode.removeChild(this.$el);

@@ -1,5 +1,5 @@
 import './style.css';
-import EventBus from '../eventBus';
+import { EventBus } from '../index';
 import { CHANGE_COLOR, UPDATE_RECENT, GET_COLOR } from '../events-type';
 
 class Toolbar {
@@ -16,16 +16,14 @@ class Toolbar {
     this.input = this.dom.querySelector('input')!;
     this.button = this.dom.querySelector('button')!;
 
-    this.setColor();
+    EventBus.on(CHANGE_COLOR, this.changeColor.bind(this));
     this.button.addEventListener('click', this.clickButton.bind(this));
     this.input.addEventListener('input', this.onChange.bind(this));
   }
 
-  private setColor() {
-    EventBus.on(CHANGE_COLOR, (color) => {
-      this.i.style.background = color;
-      this.input.value = color.substr(1);
-    });
+  private changeColor(color) { // EventBus
+    this.i.style.background = color;
+    this.input.value = color.substr(1);
   }
 
   private clickButton() {
@@ -52,6 +50,7 @@ class Toolbar {
   public destroy() {
     this.button.removeEventListener('click', this.clickButton.bind(this));
     this.input.removeEventListener('input', this.onChange.bind(this));
+    EventBus.off(CHANGE_COLOR, this.changeColor.bind(this));
   }
 
 }

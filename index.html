@@ -37,20 +37,20 @@
   const w = new WeChatColorPicker({
     el: '#container',
     click(color) {
-      alert(`获得的基础颜色是${color}`);
+      alert(`1获得的基础颜色是${color}`);
     },
     clear() {
       alert('清除');
     },
   });
-  setTimeout(() => {
+  /* setTimeout(() => {
     w.destroy();
-  }, 3000)
+  }, 3000) */
 
   const wx = new WeChatColorPicker({
     el: '#box',
     click(color) {
-      alert(`获得的基础颜色是${color}`);
+      alert(`2获得的基础颜色是${color}`);
     },
     clear() {
       alert('清除');

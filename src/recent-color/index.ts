@@ -1,5 +1,5 @@
 import './style.css';
-import EventBus from '../eventBus';
+import { EventBus } from '../index';
 import { UPDATE_RECENT, GET_COLOR, CLEAR_COLOR } from '../events-type';
 
 class RecentComponent {
@@ -13,10 +13,8 @@ class RecentComponent {
     this.dom.addEventListener('click', RecentComponent.getRecentColor);
 
     this.render();
-    EventBus.on(UPDATE_RECENT, (color) => {
-      this.setRecentColor(color);
-      this.render();
-    });
+    EventBus.on(UPDATE_RECENT, this.updateRecent.bind(this));
+
   }
 
   private setRecentColor(color) {
@@ -60,6 +58,11 @@ class RecentComponent {
       '';
   }
 
+  private updateRecent(color) { // EventBus
+    this.setRecentColor(color);
+    this.render();
+  }
+
   private render() {
     this.dom.innerHTML = `
                         <p>最近使用颜色</p>
@@ -70,9 +73,9 @@ class RecentComponent {
     this.dom.querySelector('.wechat-clear-color')!.insertAdjacentHTML('afterend', this.genList());
   }
 
-
   public destroy() {
     this.dom.removeEventListener('click', RecentComponent.getRecentColor);
+    EventBus.off(UPDATE_RECENT, this.updateRecent.bind(this));
   }
 
 }

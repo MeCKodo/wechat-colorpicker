@@ -1,5 +1,5 @@
 import './style.css';
-import EventBus from '../eventBus';
+import { EventBus } from '../index';
 import { UPDATE_RECENT, CHANGE_TAB, GET_COLOR } from '../events-type';
 
 class BaseComponent {

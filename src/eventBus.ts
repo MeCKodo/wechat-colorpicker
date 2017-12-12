@@ -13,7 +13,6 @@ class EventBus {
     if (!this.events[type]) {
       return;
     }
-
     this.events[type].forEach((fn) => {
       fn(...args);
     });
@@ -24,7 +23,6 @@ class EventBus {
     if (!typeArr) {
       return;
     }
-
     typeArr.forEach((cb, index) => {
       if (fn === cb) {
         this.events[type].splice(index, 1);
@@ -34,4 +32,4 @@ class EventBus {
 
 }
 
-export default new EventBus();
+export default EventBus;
