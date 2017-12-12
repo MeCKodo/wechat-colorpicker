@@ -2049,7 +2049,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, ".wechat-recent-color p {\n  font-size: 14px;\n  margin:0 0 5px 0;\n  color: #8d8d8d;\n}\n.wechat-clear-color {\n  position: relative;\n  background: #fff;\n}\n.wechat-clear-color:after {\n  content: '';\n  position: absolute;\n  top: -3px;\n  right: 9px;\n  width: 1px;\n  height: 25px;\n  background: red;\n  -webkit-transform: rotate(45deg);\n  transform: rotate(45deg);\n}\n.wechat-recent-color ul {\n  padding: 0;\n  margin: 0;\n  font-size: 0;\n}\n.wechat-recent-color li {\n  list-style: none;\n  display: inline-block;\n  width: 18px;\n  height: 18px;\n  margin: 0 4px 4px 0;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".wechat-recent-color {\n  padding: 0 0 12px;\n}\n.wechat-recent-color p {\n  font-size: 14px;\n  margin:0 0 5px 0;\n  color: #8d8d8d;\n}\n.wechat-clear-color {\n  position: relative;\n  background: #fff;\n}\n.wechat-clear-color:after {\n  content: '';\n  position: absolute;\n  top: -3px;\n  right: 9px;\n  width: 1px;\n  height: 25px;\n  background: red;\n  -webkit-transform: rotate(45deg);\n  transform: rotate(45deg);\n}\n.wechat-recent-color ul {\n  padding: 0;\n  margin: 0;\n  font-size: 0;\n}\n.wechat-recent-color li {\n  list-style: none;\n  display: inline-block;\n  width: 18px;\n  height: 18px;\n  margin: 0 4px 4px 0;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -2144,7 +2144,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, ".wechat-picker-box {\n    padding: 0 0 12px;\n    border-bottom: 1px dotted #e7e7eb;\n}\n.wechat-picker-box span {\n    cursor: pointer;\n}\n.wechat-picker-box p {\n    color: #d2d2d2;\n    font-size: 14px;\n}\n.wechat-picker-box p i {\n    font-style: normal;\n    padding: 0 .5em;\n    border-left: 1px solid #e7e7eb;\n}\n.wechat-picker-box p i:first-child {\n    padding-left: 0;\n    border-left-width: 0;\n}\n.wechat-base-wrapper {\n    font-size: 0;\n}\n.wechat-base-wrapper span {\n    display: inline-block;\n    width: 18px;\n    height: 18px;\n    margin: 0 4px 4px 0;\n    border: 1px solid #e7e7eb;\n}", ""]);
+exports.push([module.i, ".wechat-picker-box {\n  padding: 0 0 12px;\n  border-bottom: 1px dotted #e7e7eb;\n}\n\n.wechat-picker-box span {\n  cursor: pointer;\n}\n\n.wechat-picker-box p {\n  color: #d2d2d2;\n  font-size: 14px;\n  margin: 0 0 5px;\n}\n\n.wechat-picker-box p i {\n  font-style: normal;\n  padding: 0 .5em;\n  font-size: 14px;\n  border-left: 1px solid #e7e7eb;\n}\n\n.wechat-picker-box p i:first-child {\n  padding-left: 0;\n  border-left-width: 0;\n}\n\n.wechat-base-wrapper {\n  font-size: 0;\n}\n\n.wechat-base-wrapper span {\n  display: inline-block;\n  width: 18px;\n  height: 18px;\n  margin: 0 4px 4px 0;\n  border: 1px solid #e7e7eb;\n}", ""]);
 
 // exports
 
@@ -2240,7 +2240,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n.wechat-picker-toolbar {\n  padding: 15px 0 0;\n}\n\n.wechat-picker-toolbar i {\n  float: left;\n  width: 24px;\n  height: 24px;\n  margin-right: 6px;\n  background: #000;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}\n.wechat-picker-toolbar div {\n  position: relative;\n  display: inline-block;\n  width: 98px;\n  height: 24px;\n  padding: 0 5px;\n  border: 1px solid #e7e7eb;\n}\n.wechat-picker-toolbar div span {\n  position: absolute;\n  top: 2px;\n  font-size: 14px;\n  color: #222;\n  font-weight: 400;\n}\n.wechat-picker-toolbar div input {\n  outline: 0;\n  width: 60px;\n  border: 0;\n  margin: 0 0 0 10px;\n  color: #222;\n  font-size: 14px;\n}\n.wechat-picker-toolbar button {\n  float: right;\n  margin-left: 6px;\n  padding: 0 20px;\n  height: 26px;\n  line-height: 26px;\n  border-radius: 3px;\n  -moz-border-radius: 3px;\n  -webkit-border-radius: 3px;\n  font-size: 14px;\n  cursor: pointer;\n  border: 1px solid #e7e7eb;\n  background-color: #fff;\n  color: #222;\n  outline: 0;\n}\n.wechat-picker-toolbar button:hover {\n  border: 1px solid #dadbe0;\n}", ""]);
+exports.push([module.i, "\n.wechat-picker-toolbar {\n  padding: 15px 0 0;\n}\n\n.wechat-picker-toolbar i {\n  float: left;\n  width: 24px;\n  height: 24px;\n  margin-right: 6px;\n  background: #000;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}\n\n.wechat-picker-toolbar div {\n  position: relative;\n  display: inline-block;\n  width: 98px;\n  height: 24px;\n  line-height: 24px;\n  padding: 0 5px;\n  border: 1px solid #e7e7eb;\n}\n\n.wechat-picker-toolbar div span {\n  position: absolute;\n  top: 0;\n  left: 4px;\n  font-size: 14px;\n  color: #222;\n  font-weight: 400;\n}\n\n.wechat-picker-toolbar div input {\n  outline: 0;\n  width: 60px;\n  border: 0;\n  margin: 0 0 0 10px;\n  color: #222;\n  height: 22px;\n  line-height: 22px;\n  font-size: 14px;\n}\n\n.wechat-picker-toolbar button {\n  float: right;\n  margin-left: 6px;\n  padding: 0 20px;\n  height: 26px;\n  line-height: 26px;\n  border-radius: 3px;\n  -moz-border-radius: 3px;\n  -webkit-border-radius: 3px;\n  font-size: 14px;\n  cursor: pointer;\n  border: 1px solid #e7e7eb;\n  background-color: #fff;\n  color: #222;\n  outline: 0;\n}\n\n.wechat-picker-toolbar button:hover {\n  border: 1px solid #dadbe0;\n}", ""]);
 
 // exports
 

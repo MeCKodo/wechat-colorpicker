@@ -3,8 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>wechat-colorpicker</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      font-size: 12px;
+    }
+    #container .wechat-colorpicker {
+      margin: 0 auto;
+    }
+    #box .wechat-colorpicker {
+      display: inline-block;
+      margin: 0 30px;
+    }
+  </style>
 </head>
 <body>
+<h2 style="text-align: center;font-size: 18px; font-weight: bold;padding: 20px 0;">实例化单个</h2>
 <div id="container">
   <!--<div class="wechat-colorpicker">
     <div class="wechat-recent-color">
@@ -31,7 +46,8 @@
     </div>
   </div>-->
 </div>
-<div id="box"></div>
+<h2 style="text-align: center;font-size: 18px; font-weight: bold;padding: 20px 0;">实例化多个</h2>
+<div id="box" style="text-align: center"></div>
 <script src="../dist/main.js"></script>
 <script>
   const w = new WeChatColorPicker({
@@ -43,14 +59,21 @@
       alert('清除');
     },
   });
-  setTimeout(() => {
-    w.destroy();
-  }, 3000);
+
 
   const wx = new WeChatColorPicker({
     el: '#box',
     click(color) {
       alert(`2获得的基础颜色是${color}`);
+    },
+    clear() {
+      alert('清除');
+    },
+  });
+  const wxx = new WeChatColorPicker({
+    el: '#box',
+    click(color) {
+      alert(`3获得的基础颜色是${color}`);
     },
     clear() {
       alert('清除');
