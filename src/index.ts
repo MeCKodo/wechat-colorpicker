@@ -17,6 +17,7 @@ class WeChatColorPicker {
   private picker;
   private options: Options;
   private domWrapper: HTMLElement = document.createElement('div');
+
   public event = new Event();
   private recentComponent = new RecentComponent(this);
   private baseComponent = new BaseComponent(this);
@@ -27,6 +28,7 @@ class WeChatColorPicker {
       console.error('必须指定el参数');
       return;
     }
+
     this.options = options;
     const dogFrg = document.createDocumentFragment();
     dogFrg.appendChild(this.recentComponent.dom);
@@ -49,6 +51,7 @@ class WeChatColorPicker {
     this.event.on(GET_COLOR, this.getColor.bind(this));
     this.event.on(CLEAR_COLOR, this.clear.bind(this));
     this.event.on(CHANGE_TAB, this.changeTab.bind(this));
+
     document.querySelector(options.el)!.appendChild(this.domWrapper);
 
   }

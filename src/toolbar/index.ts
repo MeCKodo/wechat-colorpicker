@@ -2,11 +2,13 @@ import './style.css';
 import { CHANGE_COLOR, UPDATE_RECENT, GET_COLOR } from '../events-type';
 
 class Toolbar {
-  public dom: HTMLElement = document.createElement('div');
   private i: HTMLElement;
   private input: HTMLInputElement;
   private button: HTMLElement;
+
+  public dom: HTMLElement = document.createElement('div');
   public $parent;
+
   constructor(parent) {
     this.$parent = parent;
     this.dom.className = 'wechat-picker-toolbar';
@@ -50,7 +52,7 @@ class Toolbar {
   public destroy() {
     this.button.removeEventListener('click', this.clickButton.bind(this));
     this.input.removeEventListener('input', this.onChange.bind(this));
-    this.$parent.off(CHANGE_COLOR, this.changeColor.bind(this));
+    this.$parent.event.off(CHANGE_COLOR, this.changeColor.bind(this));
   }
 
 }

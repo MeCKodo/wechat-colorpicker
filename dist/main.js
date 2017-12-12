@@ -75,6 +75,23 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CHANGE_TAB; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CHANGE_COLOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_RECENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return GET_COLOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLEAR_COLOR; });
+var CHANGE_TAB = 'CHANGE_TAB';
+var CHANGE_COLOR = 'CHANGE_COLOR';
+var UPDATE_RECENT = 'UPDATE_RECENT';
+var GET_COLOR = 'GET_COLOR';
+var CLEAR_COLOR = 'CLEAR_COLOR';
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -139,7 +156,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -511,23 +528,6 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CHANGE_TAB; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CHANGE_COLOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_RECENT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return GET_COLOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLEAR_COLOR; });
-var CHANGE_TAB = 'CHANGE_TAB';
-var CHANGE_COLOR = 'CHANGE_COLOR';
-var UPDATE_RECENT = 'UPDATE_RECENT';
-var GET_COLOR = 'GET_COLOR';
-var CLEAR_COLOR = 'CLEAR_COLOR';
-
-
-/***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -540,7 +540,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__recent_color_index__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__base_color_index__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__toolbar_index__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__events_type__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__events_type__ = __webpack_require__(0);
 
 
 
@@ -624,7 +624,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(1)(content, options);
+var update = __webpack_require__(2)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -644,7 +644,7 @@ if(false) {
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)(undefined);
+exports = module.exports = __webpack_require__(1)(undefined);
 // imports
 
 
@@ -699,7 +699,7 @@ module.exports = function (css) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__events_type__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__events_type__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinycolor2__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_tinycolor2__);
 
@@ -1940,13 +1940,15 @@ var Event = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(0);
 
 
+var prefix = '__wechat__picker__color__';
+var uuid = 0;
 var RecentComponent = (function () {
     function RecentComponent(parent) {
         this.maxColorLen = 8;
-        this.storagePrefix = '__wechat__picker__color__';
+        this.storagePrefix = "" + prefix + (uuid += 1);
         this.dom = document.createElement('div');
         this.$parent = parent;
         this.dom.className = 'wechat-recent-color';
@@ -2022,7 +2024,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(1)(content, options);
+var update = __webpack_require__(2)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -2042,7 +2044,7 @@ if(false) {
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)(undefined);
+exports = module.exports = __webpack_require__(1)(undefined);
 // imports
 
 
@@ -2059,7 +2061,7 @@ exports.push([module.i, ".wechat-recent-color p {\n  font-size: 14px;\n  margin:
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(0);
 
 
 var BaseComponent = (function () {
@@ -2084,15 +2086,15 @@ var BaseComponent = (function () {
             this.switchTab(target.getAttribute('data-type'));
         }
     };
-    BaseComponent.prototype.selectColor = function (target) {
-        var color = target.getAttribute('data-color');
-        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["e" /* UPDATE_RECENT */], color);
-        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["d" /* GET_COLOR */], color);
-    };
     BaseComponent.prototype.switchTab = function (type) {
         if (!type)
             return;
         this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["b" /* CHANGE_TAB */], type === 'base' ? 'base-color' : 'more-color');
+    };
+    BaseComponent.prototype.selectColor = function (target) {
+        var color = target.getAttribute('data-color');
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["e" /* UPDATE_RECENT */], color);
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["d" /* GET_COLOR */], color);
     };
     BaseComponent.prototype.destroy = function () {
         this.dom.removeEventListener('click', this.clickHandler.bind(this));
@@ -2117,7 +2119,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(1)(content, options);
+var update = __webpack_require__(2)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -2137,7 +2139,7 @@ if(false) {
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)(undefined);
+exports = module.exports = __webpack_require__(1)(undefined);
 // imports
 
 
@@ -2154,7 +2156,7 @@ exports.push([module.i, ".wechat-picker-box {\n    padding: 0 0 12px;\n    borde
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(0);
 
 
 var Toolbar = (function () {
@@ -2191,7 +2193,7 @@ var Toolbar = (function () {
     Toolbar.prototype.destroy = function () {
         this.button.removeEventListener('click', this.clickButton.bind(this));
         this.input.removeEventListener('input', this.onChange.bind(this));
-        this.$parent.off(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.changeColor.bind(this));
+        this.$parent.event.off(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.changeColor.bind(this));
     };
     return Toolbar;
 }());
@@ -2213,7 +2215,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(1)(content, options);
+var update = __webpack_require__(2)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -2233,7 +2235,7 @@ if(false) {
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)(undefined);
+exports = module.exports = __webpack_require__(1)(undefined);
 // imports
 
 
