@@ -2,6 +2,9 @@
 
 > 颜色选择器（UI取自微信公众号后台编辑器）
 
+[demo](https://meckodo.github.io/wechat-colorpicker/)
+[![NPM](https://nodei.co/npm/wechat-colorpicker.png)](https://nodei.co/npm/wechat-colorpicker/)
+
 ## 栗子
 
 ```javascript

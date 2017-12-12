@@ -1,5 +1,5 @@
 import WeChatColorPicker from '../src';
-
+export let uuid = 0;
 export const pickerOptions = {
   el: '#container',
   click(color) {
@@ -11,6 +11,7 @@ export const pickerOptions = {
 };
 
 export function newInstance() {
+  uuid += 1;
   document.body.innerHTML = `<div id="container"></div>`;
   return new WeChatColorPicker(pickerOptions);
 }

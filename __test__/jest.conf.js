@@ -2,6 +2,7 @@ const path = require('path')
 
 module.exports = {
   verbose: true,
+  collectCoverage: true,
   globals: {
     NODE_ENV: 'test',
   },
