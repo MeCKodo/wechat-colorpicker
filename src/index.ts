@@ -1,12 +1,10 @@
 import './style.css';
 import Picker from './picker/index';
+import Event from './event';
 import RecentComponent from './recent-color/index';
 import BaseComponent from './base-color/index';
 import ToolBarComponent from './toolbar/index';
-import EventBusInstance from './eventBus';
 import { CHANGE_TAB, CLEAR_COLOR, GET_COLOR } from './events-type';
-
-export const EventBus = new EventBusInstance();
 
 interface Options {
   el: string;
@@ -17,19 +15,18 @@ interface Options {
 
 class WeChatColorPicker {
   private picker;
-  private options:Options;
+  private options: Options;
   private domWrapper: HTMLElement = document.createElement('div');
-  private recentComponent = new RecentComponent();
-  private baseComponent = new BaseComponent();
-  private toolbarComponent = new ToolBarComponent();
+  public event = new Event();
+  private recentComponent = new RecentComponent(this);
+  private baseComponent = new BaseComponent(this);
+  private toolbarComponent = new ToolBarComponent(this);
 
   constructor(options: Options) {
-
     if (!options.el) {
       console.error('必须指定el参数');
       return;
     }
-
     this.options = options;
     const dogFrg = document.createDocumentFragment();
     dogFrg.appendChild(this.recentComponent.dom);
@@ -42,15 +39,16 @@ class WeChatColorPicker {
     // 下一个tick再初始化
     setTimeout(() => {
       this.picker = new Picker({
-        el: '.wechat-picker-box',
         color: '#000',
+        parent: this,
       });
+      const el = this.domWrapper.querySelector('.wechat-picker-box')!;
+      this.picker.appendTo(el);
     });
 
-    EventBus.on(GET_COLOR, this.getColor.bind(this));
-    EventBus.on(CLEAR_COLOR, this.clear.bind(this));
-    EventBus.on(CHANGE_TAB, this.changeTab.bind(this));
-
+    this.event.on(GET_COLOR, this.getColor.bind(this));
+    this.event.on(CLEAR_COLOR, this.clear.bind(this));
+    this.event.on(CHANGE_TAB, this.changeTab.bind(this));
     document.querySelector(options.el)!.appendChild(this.domWrapper);
 
   }
@@ -68,15 +66,14 @@ class WeChatColorPicker {
   }
 
   public destroy() {
-    console.log('destroy');
     this.recentComponent.destroy();
     this.baseComponent.destroy();
     this.toolbarComponent.destroy();
     this.picker.remove();
 
-    EventBus.off(GET_COLOR, this.getColor.bind(this));
-    EventBus.off(CLEAR_COLOR, this.clear.bind(this));
-    EventBus.off(CHANGE_TAB, this.changeTab.bind(this));
+    this.event.off(GET_COLOR, this.getColor.bind(this));
+    this.event.off(CLEAR_COLOR, this.clear.bind(this));
+    this.event.off(CHANGE_TAB, this.changeTab.bind(this));
 
     if (this.domWrapper.parentElement) {
       this.domWrapper.parentElement.removeChild(this.domWrapper);

@@ -1,10 +1,11 @@
 export interface ColorPickerOptions {
   color?: string | number;
   background?: string | number;
-  el?: HTMLElement | String;
+  el?: HTMLElement;
   width?: number;
   height?: number;
   onChange?(color):void;
+  parent?;
 }
 
 export interface ColorPicker {

@@ -1,5 +1,4 @@
 import './style.css';
-import { EventBus } from '../index';
 import { UPDATE_RECENT, CHANGE_TAB, GET_COLOR } from '../events-type';
 
 class BaseComponent {
@@ -12,8 +11,9 @@ class BaseComponent {
   }
 
   public dom: HTMLElement = document.createElement('div');
-
-  constructor() {
+  public $parent;
+  constructor(parent) {
+    this.$parent = parent;
     this.dom.className = 'wechat-picker-box';
     this.dom.innerHTML = `<p>
                           <i data-type="base">基本色</i><i data-type="more">更多颜色</i>
@@ -22,31 +22,31 @@ class BaseComponent {
                           ${this.genBaseList()}
                         </div>`;
 
-    this.dom.addEventListener('click', BaseComponent.clickHandler);
+    this.dom.addEventListener('click', this.clickHandler.bind(this));
   }
 
-  static clickHandler(e: MouseEvent) {
+  private clickHandler(e: MouseEvent) {
     const target = e.target as HTMLElement;
     if (target.tagName === 'SPAN') {
-      BaseComponent.selectColor(target);
+      this.selectColor(target);
     } else if (target.tagName === 'I') {
-      BaseComponent.switchTab(target.getAttribute('data-type'));
+      this.switchTab(target.getAttribute('data-type'));
     }
   }
 
-  static selectColor(target: HTMLElement) {
+  public selectColor(target: HTMLElement) {
     const color: string = target.getAttribute('data-color')!;
-    EventBus.emit(UPDATE_RECENT, color);
-    EventBus.emit(GET_COLOR, color);
+    this.$parent.event.emit(UPDATE_RECENT, color);
+    this.$parent.event.emit(GET_COLOR, color);
   }
 
-  static switchTab(type: string | null) {
+  private switchTab(type: string | null) {
     if (!type) return;
-    EventBus.emit(CHANGE_TAB, type === 'base' ? 'base-color' : 'more-color');
+    this.$parent.event.emit(CHANGE_TAB, type === 'base' ? 'base-color' : 'more-color');
   }
 
   public destroy() {
-    this.dom.removeEventListener('click', BaseComponent.clickHandler);
+    this.dom.removeEventListener('click', this.clickHandler.bind(this));
   }
 
 }

@@ -70,110 +70,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventBus", function() { return EventBus; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__picker_index__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__recent_color_index__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_color_index__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__toolbar_index__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__eventBus__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__events_type__ = __webpack_require__(1);
-
-
-
-
-
-
-
-var EventBus = new __WEBPACK_IMPORTED_MODULE_5__eventBus__["a" /* default */]();
-var WeChatColorPicker = (function () {
-    function WeChatColorPicker(options) {
-        var _this = this;
-        this.domWrapper = document.createElement('div');
-        this.recentComponent = new __WEBPACK_IMPORTED_MODULE_2__recent_color_index__["a" /* default */]();
-        this.baseComponent = new __WEBPACK_IMPORTED_MODULE_3__base_color_index__["a" /* default */]();
-        this.toolbarComponent = new __WEBPACK_IMPORTED_MODULE_4__toolbar_index__["a" /* default */]();
-        if (!options.el) {
-            console.error('必须指定el参数');
-            return;
-        }
-        this.options = options;
-        var dogFrg = document.createDocumentFragment();
-        dogFrg.appendChild(this.recentComponent.dom);
-        dogFrg.appendChild(this.baseComponent.dom);
-        dogFrg.appendChild(this.toolbarComponent.dom);
-        this.domWrapper.className = 'wechat-colorpicker base-color';
-        this.domWrapper.appendChild(dogFrg);
-        setTimeout(function () {
-            _this.picker = new __WEBPACK_IMPORTED_MODULE_1__picker_index__["a" /* default */]({
-                el: '.wechat-picker-box',
-                color: '#000',
-            });
-        });
-        EventBus.on(__WEBPACK_IMPORTED_MODULE_6__events_type__["d" /* GET_COLOR */], this.getColor.bind(this));
-        EventBus.on(__WEBPACK_IMPORTED_MODULE_6__events_type__["c" /* CLEAR_COLOR */], this.clear.bind(this));
-        EventBus.on(__WEBPACK_IMPORTED_MODULE_6__events_type__["b" /* CHANGE_TAB */], this.changeTab.bind(this));
-        document.querySelector(options.el).appendChild(this.domWrapper);
-    }
-    WeChatColorPicker.prototype.changeTab = function (type) {
-        this.domWrapper.className = "wechat-colorpicker " + type;
-    };
-    WeChatColorPicker.prototype.getColor = function (color) {
-        this.options.click(color);
-    };
-    WeChatColorPicker.prototype.clear = function () {
-        this.options.clear();
-    };
-    WeChatColorPicker.prototype.destroy = function () {
-        console.log('destroy');
-        this.recentComponent.destroy();
-        this.baseComponent.destroy();
-        this.toolbarComponent.destroy();
-        this.picker.remove();
-        EventBus.off(__WEBPACK_IMPORTED_MODULE_6__events_type__["d" /* GET_COLOR */], this.getColor.bind(this));
-        EventBus.off(__WEBPACK_IMPORTED_MODULE_6__events_type__["c" /* CLEAR_COLOR */], this.clear.bind(this));
-        EventBus.off(__WEBPACK_IMPORTED_MODULE_6__events_type__["b" /* CHANGE_TAB */], this.changeTab.bind(this));
-        if (this.domWrapper.parentElement) {
-            this.domWrapper.parentElement.removeChild(this.domWrapper);
-        }
-    };
-    return WeChatColorPicker;
-}());
-if (window) {
-    window.WeChatColorPicker = WeChatColorPicker;
-}
-/* harmony default export */ __webpack_exports__["default"] = (WeChatColorPicker);
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CHANGE_TAB; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CHANGE_COLOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_RECENT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return GET_COLOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLEAR_COLOR; });
-var CHANGE_TAB = 'CHANGE_TAB';
-var CHANGE_COLOR = 'CHANGE_COLOR';
-var UPDATE_RECENT = 'UPDATE_RECENT';
-var GET_COLOR = 'GET_COLOR';
-var CLEAR_COLOR = 'CLEAR_COLOR';
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -238,7 +139,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 3 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -610,6 +511,105 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CHANGE_TAB; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CHANGE_COLOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_RECENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return GET_COLOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLEAR_COLOR; });
+var CHANGE_TAB = 'CHANGE_TAB';
+var CHANGE_COLOR = 'CHANGE_COLOR';
+var UPDATE_RECENT = 'UPDATE_RECENT';
+var GET_COLOR = 'GET_COLOR';
+var CLEAR_COLOR = 'CLEAR_COLOR';
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__picker_index__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__event__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__recent_color_index__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__base_color_index__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__toolbar_index__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__events_type__ = __webpack_require__(2);
+
+
+
+
+
+
+
+var WeChatColorPicker = (function () {
+    function WeChatColorPicker(options) {
+        var _this = this;
+        this.domWrapper = document.createElement('div');
+        this.event = new __WEBPACK_IMPORTED_MODULE_2__event__["a" /* default */]();
+        this.recentComponent = new __WEBPACK_IMPORTED_MODULE_3__recent_color_index__["a" /* default */](this);
+        this.baseComponent = new __WEBPACK_IMPORTED_MODULE_4__base_color_index__["a" /* default */](this);
+        this.toolbarComponent = new __WEBPACK_IMPORTED_MODULE_5__toolbar_index__["a" /* default */](this);
+        if (!options.el) {
+            console.error('必须指定el参数');
+            return;
+        }
+        this.options = options;
+        var dogFrg = document.createDocumentFragment();
+        dogFrg.appendChild(this.recentComponent.dom);
+        dogFrg.appendChild(this.baseComponent.dom);
+        dogFrg.appendChild(this.toolbarComponent.dom);
+        this.domWrapper.className = 'wechat-colorpicker base-color';
+        this.domWrapper.appendChild(dogFrg);
+        setTimeout(function () {
+            _this.picker = new __WEBPACK_IMPORTED_MODULE_1__picker_index__["a" /* default */]({
+                color: '#000',
+                parent: _this,
+            });
+            var el = _this.domWrapper.querySelector('.wechat-picker-box');
+            _this.picker.appendTo(el);
+        });
+        this.event.on(__WEBPACK_IMPORTED_MODULE_6__events_type__["d" /* GET_COLOR */], this.getColor.bind(this));
+        this.event.on(__WEBPACK_IMPORTED_MODULE_6__events_type__["c" /* CLEAR_COLOR */], this.clear.bind(this));
+        this.event.on(__WEBPACK_IMPORTED_MODULE_6__events_type__["b" /* CHANGE_TAB */], this.changeTab.bind(this));
+        document.querySelector(options.el).appendChild(this.domWrapper);
+    }
+    WeChatColorPicker.prototype.changeTab = function (type) {
+        this.domWrapper.className = "wechat-colorpicker " + type;
+    };
+    WeChatColorPicker.prototype.getColor = function (color) {
+        this.options.click(color);
+    };
+    WeChatColorPicker.prototype.clear = function () {
+        this.options.clear();
+    };
+    WeChatColorPicker.prototype.destroy = function () {
+        this.recentComponent.destroy();
+        this.baseComponent.destroy();
+        this.toolbarComponent.destroy();
+        this.picker.remove();
+        this.event.off(__WEBPACK_IMPORTED_MODULE_6__events_type__["d" /* GET_COLOR */], this.getColor.bind(this));
+        this.event.off(__WEBPACK_IMPORTED_MODULE_6__events_type__["c" /* CLEAR_COLOR */], this.clear.bind(this));
+        this.event.off(__WEBPACK_IMPORTED_MODULE_6__events_type__["b" /* CHANGE_TAB */], this.changeTab.bind(this));
+        if (this.domWrapper.parentElement) {
+            this.domWrapper.parentElement.removeChild(this.domWrapper);
+        }
+    };
+    return WeChatColorPicker;
+}());
+if (window) {
+    window.WeChatColorPicker = WeChatColorPicker;
+}
+/* harmony default export */ __webpack_exports__["default"] = (WeChatColorPicker);
+
+
+/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -624,7 +624,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(3)(content, options);
+var update = __webpack_require__(1)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -644,7 +644,7 @@ if(false) {
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(undefined);
+exports = module.exports = __webpack_require__(0)(undefined);
 // imports
 
 
@@ -699,16 +699,15 @@ module.exports = function (css) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinycolor2__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_tinycolor2__);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__events_type__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinycolor2__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_tinycolor2__);
 
 
 var isNumber = function (val) { return (typeof val === 'number' || val instanceof Number); };
 function SimpleColorPicker(options) {
     if (options === void 0) { options = {}; }
+    this.$parent = options.parent;
     this.color = null;
     this.width = 0;
     this.widthUnits = 'px';
@@ -754,7 +753,7 @@ function SimpleColorPicker(options) {
     }
     this.setSize(options.width || 220, options.height || 150);
     this.setColor(options.color);
-    __WEBPACK_IMPORTED_MODULE_0__index__["EventBus"].on(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], options.onChange || function () { });
+    this.$parent.event.on(__WEBPACK_IMPORTED_MODULE_0__events_type__["a" /* CHANGE_COLOR */], options.onChange || function () { });
     return this;
 }
 SimpleColorPicker.prototype.appendTo = function (el) {
@@ -785,7 +784,7 @@ SimpleColorPicker.prototype.setColor = function (color) {
     else {
         this.inputIsNumber = false;
     }
-    this.color = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()(color);
+    this.color = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()(color);
     var hsvColor = this.color.toHsv();
     if (!isNaN(hsvColor.h)) {
         this.hue = hsvColor.h;
@@ -809,7 +808,7 @@ SimpleColorPicker.prototype.setBackgroundColor = function (color) {
     if (isNumber(color)) {
         color = numberToHex(color);
     }
-    this.$el.style.background = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()(color).toHexString();
+    this.$el.style.background = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()(color).toHexString();
     return this;
 };
 SimpleColorPicker.prototype.setNoBackground = function () {
@@ -817,7 +816,7 @@ SimpleColorPicker.prototype.setNoBackground = function () {
     this.$el.style.background = 'none';
 };
 SimpleColorPicker.prototype.onChange = function () {
-    __WEBPACK_IMPORTED_MODULE_0__index__["EventBus"].emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.getHexString());
+    this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_0__events_type__["a" /* CHANGE_COLOR */], this.getHexString());
     return this;
 };
 SimpleColorPicker.prototype.getColor = function () {
@@ -850,7 +849,7 @@ SimpleColorPicker.prototype._moveSelectorTo = function (x, y) {
     this.$sbSelector.style.webkitTransform = "translate3d(" + this.position.x + "px, " + this.position.y + "px, 0)";
 };
 SimpleColorPicker.prototype._updateColorFromPosition = function () {
-    this.color = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()({
+    this.color = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()({
         h: this.hue,
         s: this.position.x / this.saturationWidth,
         v: 1 - (this.position.y / this.hueHeight)
@@ -864,18 +863,18 @@ SimpleColorPicker.prototype._moveHueTo = function (y) {
 SimpleColorPicker.prototype._updateHueFromPosition = function () {
     var hsvColor = this.color.toHsv();
     this.hue = 360 * (1 - (this.huePosition / this.maxHue));
-    this.color = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()({ h: this.hue, s: hsvColor.s, v: hsvColor.v });
+    this.color = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()({ h: this.hue, s: hsvColor.s, v: hsvColor.v });
     this._updateHue();
 };
 SimpleColorPicker.prototype._updateHue = function () {
-    var hueColor = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()({ h: this.hue, s: 1, v: 1 });
+    var hueColor = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()({ h: this.hue, s: 1, v: 1 });
     this.$saturation.style.background = "linear-gradient(to right, #fff, " + hueColor.toHexString() + ")";
     this._updateColor();
 };
 SimpleColorPicker.prototype._updateColor = function () {
     this.$sbSelector.style.background = this.color.toHexString();
     this.$sbSelector.style.borderColor = this.color.isDark() ? '#fff' : '#000';
-    __WEBPACK_IMPORTED_MODULE_0__index__["EventBus"].emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.color.toHexString());
+    this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_0__events_type__["a" /* CHANGE_COLOR */], this.color.toHexString());
 };
 SimpleColorPicker.prototype._onSaturationMouseDown = function (e) {
     var sbOffset = this.$saturation.getBoundingClientRect();
@@ -1893,22 +1892,67 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__events_type__ = __webpack_require__(1);
+var Event = (function () {
+    function Event() {
+        this.events = {};
+    }
+    Event.prototype.on = function (type, fn) {
+        if (this.events[type]) {
+            this.events[type].push(fn);
+        }
+        else {
+            this.events[type] = [fn];
+        }
+    };
+    Event.prototype.emit = function (type) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        if (!this.events[type]) {
+            return;
+        }
+        this.events[type].forEach(function (fn) {
+            fn.apply(void 0, args);
+        });
+    };
+    Event.prototype.off = function (type, fn) {
+        var _this = this;
+        var typeArr = this.events[type];
+        if (!typeArr) {
+            return;
+        }
+        typeArr.forEach(function (cb, index) {
+            if (fn === cb) {
+                _this.events[type].splice(index, 1);
+            }
+        });
+    };
+    return Event;
+}());
+/* harmony default export */ __webpack_exports__["a"] = (Event);
 
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(2);
 
 
 var RecentComponent = (function () {
-    function RecentComponent() {
+    function RecentComponent(parent) {
         this.maxColorLen = 8;
         this.storagePrefix = '__wechat__picker__color__';
         this.dom = document.createElement('div');
+        this.$parent = parent;
         this.dom.className = 'wechat-recent-color';
-        this.dom.addEventListener('click', RecentComponent.getRecentColor);
+        this.dom.addEventListener('click', this.getRecentColor.bind(this));
         this.render();
-        __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].on(__WEBPACK_IMPORTED_MODULE_2__events_type__["e" /* UPDATE_RECENT */], this.updateRecent.bind(this));
+        this.$parent.event.on(__WEBPACK_IMPORTED_MODULE_1__events_type__["e" /* UPDATE_RECENT */], this.updateRecent.bind(this));
     }
     RecentComponent.prototype.setRecentColor = function (color) {
         var ls = window.localStorage;
@@ -1927,14 +1971,14 @@ var RecentComponent = (function () {
         }
         ls.setItem(this.storagePrefix, colorArr ? colorArr : color);
     };
-    RecentComponent.getRecentColor = function (e) {
+    RecentComponent.prototype.getRecentColor = function (e) {
         var target = e.target;
         if (target.tagName === 'LI') {
             if (target.classList.contains('wechat-recent-item')) {
-                __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["d" /* GET_COLOR */], target.getAttribute('data-color'));
+                this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["d" /* GET_COLOR */], target.getAttribute('data-color'));
             }
             else {
-                __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["c" /* CLEAR_COLOR */]);
+                this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["c" /* CLEAR_COLOR */]);
             }
         }
     };
@@ -1955,8 +1999,8 @@ var RecentComponent = (function () {
         this.dom.querySelector('.wechat-clear-color').insertAdjacentHTML('afterend', this.genList());
     };
     RecentComponent.prototype.destroy = function () {
-        this.dom.removeEventListener('click', RecentComponent.getRecentColor);
-        __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].off(__WEBPACK_IMPORTED_MODULE_2__events_type__["e" /* UPDATE_RECENT */], this.updateRecent.bind(this));
+        this.dom.removeEventListener('click', this.getRecentColor.bind(this));
+        this.$parent.event.off(__WEBPACK_IMPORTED_MODULE_1__events_type__["e" /* UPDATE_RECENT */], this.updateRecent.bind(this));
     };
     return RecentComponent;
 }());
@@ -1964,13 +2008,13 @@ var RecentComponent = (function () {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(11);
+var content = __webpack_require__(12);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1978,7 +2022,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(3)(content, options);
+var update = __webpack_require__(1)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -1995,10 +2039,10 @@ if(false) {
 }
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(undefined);
+exports = module.exports = __webpack_require__(0)(undefined);
 // imports
 
 
@@ -2009,50 +2053,49 @@ exports.push([module.i, ".wechat-recent-color p {\n  font-size: 14px;\n  margin:
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__events_type__ = __webpack_require__(1);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(2);
 
 
 var BaseComponent = (function () {
-    function BaseComponent() {
+    function BaseComponent(parent) {
         this.baseColorArr = ['ffffff', 'ffd7d5', 'ffdaa9', 'fffed5', 'd4fa00', '73fcd6', 'a5c8ff', 'ffacd5', 'ff7faa', 'd6d6d6', 'ffacaa', 'ffb995', 'fffb00', '73fa79', '00fcff', '78acfe', 'd84fa9', 'ff4f79', 'b2b2b2', 'd7aba9', 'ff6827', 'ffda51', '00d100', '00d5ff', '0080ff', 'ac39ff', 'ff2941', '888888', '7a4442', 'ff4c00', 'ffa900', '3da742', '3daad6', '0052ff', '7a4fd6', 'd92142', '000000', '7b0c00', 'ff4c41', 'd6a841', '407600', '007aaa', '021eaa', '797baa', 'ab1942'];
         this.dom = document.createElement('div');
+        this.$parent = parent;
         this.dom.className = 'wechat-picker-box';
         this.dom.innerHTML = "<p>\n                          <i data-type=\"base\">\u57FA\u672C\u8272</i><i data-type=\"more\">\u66F4\u591A\u989C\u8272</i>\n                        </p>\n                        <div class=\"wechat-base-wrapper\">\n                          " + this.genBaseList() + "\n                        </div>";
-        this.dom.addEventListener('click', BaseComponent.clickHandler);
+        this.dom.addEventListener('click', this.clickHandler.bind(this));
     }
     BaseComponent.prototype.genBaseList = function () {
         var span = function (color) { return "<span data-color=\"" + color + "\" style=\"background: " + color + "\"></span>"; };
         return this.baseColorArr.map(function (color) { return span("#" + color); }).join('');
     };
-    BaseComponent.clickHandler = function (e) {
+    BaseComponent.prototype.clickHandler = function (e) {
         var target = e.target;
         if (target.tagName === 'SPAN') {
-            BaseComponent.selectColor(target);
+            this.selectColor(target);
         }
         else if (target.tagName === 'I') {
-            BaseComponent.switchTab(target.getAttribute('data-type'));
+            this.switchTab(target.getAttribute('data-type'));
         }
     };
-    BaseComponent.selectColor = function (target) {
+    BaseComponent.prototype.selectColor = function (target) {
         var color = target.getAttribute('data-color');
-        __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["e" /* UPDATE_RECENT */], color);
-        __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["d" /* GET_COLOR */], color);
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["e" /* UPDATE_RECENT */], color);
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["d" /* GET_COLOR */], color);
     };
-    BaseComponent.switchTab = function (type) {
+    BaseComponent.prototype.switchTab = function (type) {
         if (!type)
             return;
-        __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["b" /* CHANGE_TAB */], type === 'base' ? 'base-color' : 'more-color');
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["b" /* CHANGE_TAB */], type === 'base' ? 'base-color' : 'more-color');
     };
     BaseComponent.prototype.destroy = function () {
-        this.dom.removeEventListener('click', BaseComponent.clickHandler);
+        this.dom.removeEventListener('click', this.clickHandler.bind(this));
     };
     return BaseComponent;
 }());
@@ -2060,13 +2103,13 @@ var BaseComponent = (function () {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(14);
+var content = __webpack_require__(15);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -2074,7 +2117,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(3)(content, options);
+var update = __webpack_require__(1)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -2091,10 +2134,10 @@ if(false) {
 }
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(undefined);
+exports = module.exports = __webpack_require__(0)(undefined);
 // imports
 
 
@@ -2105,26 +2148,25 @@ exports.push([module.i, ".wechat-picker-box {\n    padding: 0 0 12px;\n    borde
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__events_type__ = __webpack_require__(1);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(2);
 
 
 var Toolbar = (function () {
-    function Toolbar() {
+    function Toolbar(parent) {
         this.dom = document.createElement('div');
+        this.$parent = parent;
         this.dom.className = 'wechat-picker-toolbar';
         this.render();
         this.i = this.dom.querySelector('i');
         this.input = this.dom.querySelector('input');
         this.button = this.dom.querySelector('button');
-        __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].on(__WEBPACK_IMPORTED_MODULE_2__events_type__["a" /* CHANGE_COLOR */], this.changeColor.bind(this));
+        this.$parent.event.on(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.changeColor.bind(this));
         this.button.addEventListener('click', this.clickButton.bind(this));
         this.input.addEventListener('input', this.onChange.bind(this));
     }
@@ -2137,8 +2179,8 @@ var Toolbar = (function () {
         if (!/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/.test(color)) {
             return;
         }
-        __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["e" /* UPDATE_RECENT */], color);
-        __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].emit(__WEBPACK_IMPORTED_MODULE_2__events_type__["d" /* GET_COLOR */], color);
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["e" /* UPDATE_RECENT */], color);
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["d" /* GET_COLOR */], color);
     };
     Toolbar.prototype.onChange = function () {
         this.i.style.backgroundColor = "#" + this.input.value;
@@ -2149,7 +2191,7 @@ var Toolbar = (function () {
     Toolbar.prototype.destroy = function () {
         this.button.removeEventListener('click', this.clickButton.bind(this));
         this.input.removeEventListener('input', this.onChange.bind(this));
-        __WEBPACK_IMPORTED_MODULE_1__index__["EventBus"].off(__WEBPACK_IMPORTED_MODULE_2__events_type__["a" /* CHANGE_COLOR */], this.changeColor.bind(this));
+        this.$parent.off(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.changeColor.bind(this));
     };
     return Toolbar;
 }());
@@ -2157,13 +2199,13 @@ var Toolbar = (function () {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(17);
+var content = __webpack_require__(18);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -2171,7 +2213,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(3)(content, options);
+var update = __webpack_require__(1)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -2188,10 +2230,10 @@ if(false) {
 }
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(undefined);
+exports = module.exports = __webpack_require__(0)(undefined);
 // imports
 
 
@@ -2199,52 +2241,6 @@ exports = module.exports = __webpack_require__(2)(undefined);
 exports.push([module.i, "\n.wechat-picker-toolbar {\n  padding: 15px 0 0;\n}\n\n.wechat-picker-toolbar i {\n  float: left;\n  width: 24px;\n  height: 24px;\n  margin-right: 6px;\n  background: #000;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}\n.wechat-picker-toolbar div {\n  position: relative;\n  display: inline-block;\n  width: 98px;\n  height: 24px;\n  padding: 0 5px;\n  border: 1px solid #e7e7eb;\n}\n.wechat-picker-toolbar div span {\n  position: absolute;\n  top: 2px;\n  font-size: 14px;\n  color: #222;\n  font-weight: 400;\n}\n.wechat-picker-toolbar div input {\n  outline: 0;\n  width: 60px;\n  border: 0;\n  margin: 0 0 0 10px;\n  color: #222;\n  font-size: 14px;\n}\n.wechat-picker-toolbar button {\n  float: right;\n  margin-left: 6px;\n  padding: 0 20px;\n  height: 26px;\n  line-height: 26px;\n  border-radius: 3px;\n  -moz-border-radius: 3px;\n  -webkit-border-radius: 3px;\n  font-size: 14px;\n  cursor: pointer;\n  border: 1px solid #e7e7eb;\n  background-color: #fff;\n  color: #222;\n  outline: 0;\n}\n.wechat-picker-toolbar button:hover {\n  border: 1px solid #dadbe0;\n}", ""]);
 
 // exports
-
-
-/***/ }),
-/* 18 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var EventBus = (function () {
-    function EventBus() {
-        this.events = {};
-    }
-    EventBus.prototype.on = function (type, fn) {
-        if (this.events[type]) {
-            this.events[type].push(fn);
-        }
-        else {
-            this.events[type] = [fn];
-        }
-    };
-    EventBus.prototype.emit = function (type) {
-        var args = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            args[_i - 1] = arguments[_i];
-        }
-        if (!this.events[type]) {
-            return;
-        }
-        this.events[type].forEach(function (fn) {
-            fn.apply(void 0, args);
-        });
-    };
-    EventBus.prototype.off = function (type, fn) {
-        var _this = this;
-        var typeArr = this.events[type];
-        if (!typeArr) {
-            return;
-        }
-        typeArr.forEach(function (cb, index) {
-            if (fn === cb) {
-                _this.events[type].splice(index, 1);
-            }
-        });
-    };
-    return EventBus;
-}());
-/* harmony default export */ __webpack_exports__["a"] = (EventBus);
 
 
 /***/ })

@@ -1,5 +1,4 @@
 import './style.css';
-import { EventBus } from '../index';
 import { CHANGE_COLOR, UPDATE_RECENT, GET_COLOR } from '../events-type';
 
 class Toolbar {
@@ -7,8 +6,9 @@ class Toolbar {
   private i: HTMLElement;
   private input: HTMLInputElement;
   private button: HTMLElement;
-
-  constructor() {
+  public $parent;
+  constructor(parent) {
+    this.$parent = parent;
     this.dom.className = 'wechat-picker-toolbar';
     this.render();
 
@@ -16,12 +16,12 @@ class Toolbar {
     this.input = this.dom.querySelector('input')!;
     this.button = this.dom.querySelector('button')!;
 
-    EventBus.on(CHANGE_COLOR, this.changeColor.bind(this));
+    this.$parent.event.on(CHANGE_COLOR, this.changeColor.bind(this));
     this.button.addEventListener('click', this.clickButton.bind(this));
     this.input.addEventListener('input', this.onChange.bind(this));
   }
 
-  private changeColor(color) { // EventBus
+  private changeColor(color) {
     this.i.style.background = color;
     this.input.value = color.substr(1);
   }
@@ -31,8 +31,8 @@ class Toolbar {
     if (!/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/.test(color)) {
       return;
     }
-    EventBus.emit(UPDATE_RECENT, color);
-    EventBus.emit(GET_COLOR, color);
+    this.$parent.event.emit(UPDATE_RECENT, color);
+    this.$parent.event.emit(GET_COLOR, color);
   }
 
   private onChange() {
@@ -50,7 +50,7 @@ class Toolbar {
   public destroy() {
     this.button.removeEventListener('click', this.clickButton.bind(this));
     this.input.removeEventListener('input', this.onChange.bind(this));
-    EventBus.off(CHANGE_COLOR, this.changeColor.bind(this));
+    this.$parent.off(CHANGE_COLOR, this.changeColor.bind(this));
   }
 
 }

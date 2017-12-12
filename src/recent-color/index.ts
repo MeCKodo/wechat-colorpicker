@@ -1,5 +1,4 @@
 import './style.css';
-import { EventBus } from '../index';
 import { UPDATE_RECENT, GET_COLOR, CLEAR_COLOR } from '../events-type';
 
 class RecentComponent {
@@ -8,12 +7,14 @@ class RecentComponent {
   private storagePrefix: string = '__wechat__picker__color__';
   public dom: HTMLElement = document.createElement('div');
 
-  constructor() {
+  public $parent;
+  constructor(parent) {
+    this.$parent = parent;
     this.dom.className = 'wechat-recent-color';
-    this.dom.addEventListener('click', RecentComponent.getRecentColor);
+    this.dom.addEventListener('click', this.getRecentColor.bind(this));
 
     this.render();
-    EventBus.on(UPDATE_RECENT, this.updateRecent.bind(this));
+    this.$parent.event.on(UPDATE_RECENT, this.updateRecent.bind(this));
 
   }
 
@@ -35,13 +36,13 @@ class RecentComponent {
     ls.setItem(this.storagePrefix, colorArr ? colorArr : color);
   }
 
-  static getRecentColor(e: MouseEvent) {
+  private getRecentColor(e: MouseEvent) {
     const target = <HTMLElement>e.target;
     if (target.tagName === 'LI') {
       if (target.classList.contains('wechat-recent-item')) {
-        EventBus.emit(GET_COLOR, target.getAttribute('data-color'));
+        this.$parent.event.emit(GET_COLOR, target.getAttribute('data-color'));
       } else {
-        EventBus.emit(CLEAR_COLOR);
+        this.$parent.event.emit(CLEAR_COLOR);
       }
     }
   }
@@ -74,8 +75,8 @@ class RecentComponent {
   }
 
   public destroy() {
-    this.dom.removeEventListener('click', RecentComponent.getRecentColor);
-    EventBus.off(UPDATE_RECENT, this.updateRecent.bind(this));
+    this.dom.removeEventListener('click', this.getRecentColor.bind(this));
+    this.$parent.event.off(UPDATE_RECENT, this.updateRecent.bind(this));
   }
 
 }

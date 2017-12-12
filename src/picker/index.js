@@ -1,5 +1,5 @@
 // https://github.com/superguigui/simple-color-picker 魔改
-import { EventBus } from '../index';
+// import { EventBus } from '../index';
 import { CHANGE_COLOR } from '../events-type';
 import tinycolor from 'tinycolor2';
 const isNumber = val => (typeof val === 'number' || val instanceof Number);
@@ -14,6 +14,7 @@ const isNumber = val => (typeof val === 'number' || val instanceof Number);
  * @param {Number} options.height Desired height of the color picker. Default is 150.
  */
 function SimpleColorPicker (options = {}) {
+  this.$parent = options.parent;
   // Properties
   this.color = null;
   this.width = 0;
@@ -79,7 +80,7 @@ function SimpleColorPicker (options = {}) {
   }
   this.setSize(options.width || 220, options.height || 150);
   this.setColor(options.color);
-  EventBus.on(CHANGE_COLOR, options.onChange || function() {});
+  this.$parent.event.on(CHANGE_COLOR, options.onChange || function() {});
   return this;
 }
 
@@ -203,7 +204,7 @@ SimpleColorPicker.prototype.setNoBackground = function () {
  * @return {SimpleColorPicker} Returns itself for chaining purpose
  */
 SimpleColorPicker.prototype.onChange = function () {
-  EventBus.emit(CHANGE_COLOR, this.getHexString());
+  this.$parent.event.emit(CHANGE_COLOR, this.getHexString());
   return this;
 };
 
@@ -311,7 +312,7 @@ SimpleColorPicker.prototype._updateHue = function () {
 SimpleColorPicker.prototype._updateColor = function () {
   this.$sbSelector.style.background = this.color.toHexString();
   this.$sbSelector.style.borderColor = this.color.isDark() ? '#fff' : '#000';
-  EventBus.emit(CHANGE_COLOR, this.color.toHexString());
+  this.$parent.event.emit(CHANGE_COLOR, this.color.toHexString());
 };
 
 /* =============================================================================

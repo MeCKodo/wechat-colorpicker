@@ -1,4 +1,4 @@
-class EventBus {
+class Event {
   private events = {};
 
   public on(type: string, fn) {
@@ -32,4 +32,4 @@ class EventBus {
 
 }
 
-export default EventBus;
+export default Event;
