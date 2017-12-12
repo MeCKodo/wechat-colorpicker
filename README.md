@@ -1,9 +1,11 @@
+
 ## wechat-colorpicker
 
+[![CircleCI](https://img.shields.io/circleci/project/github/MeCKodo/wechat-colorpicker.svg)](https://circleci.com/gh/MeCKodo/wechat-colorpicker) [![npm](https://img.shields.io/npm/dt/wechat-colorpicker.svg)](https://www.npmjs.com/package/wechat-colorpicker) [![npm](https://img.shields.io/npm/v/wechat-colorpicker.svg)](https://www.npmjs.com/package/wechat-colorpicker) 
 > 颜色选择器（UI取自微信公众号后台编辑器）
 
 [demo](https://meckodo.github.io/wechat-colorpicker/)
-[![NPM](https://nodei.co/npm/wechat-colorpicker.png)](https://nodei.co/npm/wechat-colorpicker/)
+
 
 ## 栗子
 
@@ -21,7 +23,7 @@ const example = new WeChatColorPicker({
   },
 });
 
-example.destroy();
+example.destroy(); // 销毁实例
 
 ```
 
