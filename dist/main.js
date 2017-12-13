@@ -568,9 +568,8 @@ var WeChatColorPicker = (function () {
         this.domWrapper.className = 'wechat-colorpicker base-color';
         this.domWrapper.appendChild(dogFrg);
         setTimeout(function () {
-            _this.picker = new __WEBPACK_IMPORTED_MODULE_1__picker_index__["a" /* default */]({
+            _this.picker = new __WEBPACK_IMPORTED_MODULE_1__picker_index__["a" /* default */](_this, {
                 color: '#000',
-                parent: _this,
             });
             var el = _this.domWrapper.querySelector('.wechat-picker-box');
             _this.picker.appendTo(el);
@@ -699,231 +698,16 @@ module.exports = function (css) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__events_type__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinycolor2__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_tinycolor2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinycolor2__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_tinycolor2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__component__ = __webpack_require__(21);
+
+
 
 
 var isNumber = function (val) { return (typeof val === 'number' || val instanceof Number); };
-function SimpleColorPicker(options) {
-    if (options === void 0) { options = {}; }
-    this.$parent = options.parent;
-    this.color = null;
-    this.width = 0;
-    this.widthUnits = 'px';
-    this.height = 0;
-    this.heightUnits = 'px';
-    this.hue = 0;
-    this.position = { x: 0, y: 0 };
-    this.huePosition = 0;
-    this.saturationWidth = 0;
-    this.hueHeight = 0;
-    this.maxHue = 0;
-    this.inputIsNumber = false;
-    this._onSaturationMouseDown = this._onSaturationMouseDown.bind(this);
-    this._onSaturationMouseMove = this._onSaturationMouseMove.bind(this);
-    this._onSaturationMouseUp = this._onSaturationMouseUp.bind(this);
-    this._onHueMouseDown = this._onHueMouseDown.bind(this);
-    this._onHueMouseMove = this._onHueMouseMove.bind(this);
-    this._onHueMouseUp = this._onHueMouseUp.bind(this);
-    this.window = options.window || window;
-    this.document = this.window.document;
-    this.$el = this.document.createElement('div');
-    this.$el.className = 'wechat-picker';
-    this.$el.innerHTML = "\n      <div class=\"wechat-picker-saturation\">\n        <div class=\"wechat-picker-brightness\"></div>\n        <div class=\"wechat-picker-sbSelector\"></div>\n      </div>\n      <div class=\"wechat-picker-hue\">\n        <div class=\"wechat-picker-hSelector\"></div>\n      </div>";
-    this.$saturation = this.$el.querySelector('.wechat-picker-saturation');
-    this.$hue = this.$el.querySelector('.wechat-picker-hue');
-    this.$sbSelector = this.$el.querySelector('.wechat-picker-sbSelector');
-    this.$hSelector = this.$el.querySelector('.wechat-picker-hSelector');
-    this.$saturation.addEventListener('mousedown', this._onSaturationMouseDown);
-    this.$saturation.addEventListener('touchstart', this._onSaturationMouseDown);
-    this.$hue.addEventListener('mousedown', this._onHueMouseDown);
-    this.$hue.addEventListener('touchstart', this._onHueMouseDown);
-    if (options.el) {
-        this.appendTo(options.el);
-    }
-    if (options.background) {
-        this.setBackgroundColor(options.background);
-    }
-    if (options.widthUnits) {
-        this.widthUnits = options.widthUnits;
-    }
-    if (options.heightUnits) {
-        this.heightUnits = options.heightUnits;
-    }
-    this.setSize(options.width || 220, options.height || 150);
-    this.setColor(options.color);
-    this.$parent.event.on(__WEBPACK_IMPORTED_MODULE_0__events_type__["a" /* CHANGE_COLOR */], options.onChange || function () { });
-    return this;
-}
-SimpleColorPicker.prototype.appendTo = function (el) {
-    if (typeof el === 'string') {
-        document.querySelector(el).appendChild(this.$el);
-    }
-    else {
-        el.appendChild(this.$el);
-    }
-    return this;
-};
-SimpleColorPicker.prototype.remove = function () {
-    this._onSaturationMouseUp();
-    this._onHueMouseUp();
-    this.$saturation.removeEventListener('mousedown', this._onSaturationMouseDown);
-    this.$saturation.removeEventListener('touchstart', this._onSaturationMouseDown);
-    this.$hue.removeEventListener('mousedown', this._onHueMouseDown);
-    this.$hue.removeEventListener('touchstart', this._onHueMouseDown);
-    if (this.$el.parentNode) {
-        this.$el.parentNode.removeChild(this.$el);
-    }
-};
-SimpleColorPicker.prototype.setColor = function (color) {
-    if (isNumber(color)) {
-        this.inputIsNumber = true;
-        color = numberToHex(color);
-    }
-    else {
-        this.inputIsNumber = false;
-    }
-    this.color = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()(color);
-    var hsvColor = this.color.toHsv();
-    if (!isNaN(hsvColor.h)) {
-        this.hue = hsvColor.h;
-    }
-    this._moveSelectorTo(this.saturationWidth * hsvColor.s, (1 - hsvColor.v) * this.hueHeight);
-    this._updateHue();
-    return this;
-};
-SimpleColorPicker.prototype.setSize = function (width, height) {
-    this.width = width;
-    this.height = height;
-    this.$el.style.width = this.width + this.widthUnits;
-    this.$el.style.height = this.height + this.heightUnits;
-    this.saturationWidth = this.width - 30;
-    this.$saturation.style.width = this.saturationWidth + 'px';
-    this.hueHeight = this.height;
-    this.maxHue = this.hueHeight - 2;
-    return this;
-};
-SimpleColorPicker.prototype.setBackgroundColor = function (color) {
-    if (isNumber(color)) {
-        color = numberToHex(color);
-    }
-    this.$el.style.background = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()(color).toHexString();
-    return this;
-};
-SimpleColorPicker.prototype.setNoBackground = function () {
-    this.$el.style.padding = '0px';
-    this.$el.style.background = 'none';
-};
-SimpleColorPicker.prototype.onChange = function () {
-    this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_0__events_type__["a" /* CHANGE_COLOR */], this.getHexString());
-    return this;
-};
-SimpleColorPicker.prototype.getColor = function () {
-    if (this.inputIsNumber) {
-        return this.getHexNumber();
-    }
-    return this.color.toString();
-};
-SimpleColorPicker.prototype.getHexString = function () {
-    return this.color.toHexString().toUpperCase();
-};
-SimpleColorPicker.prototype.getHexNumber = function () {
-    return parseInt(this.color.toHex(), 16);
-};
-SimpleColorPicker.prototype.getRGB = function () {
-    return this.color.toRgb();
-};
-SimpleColorPicker.prototype.getHSV = function () {
-    return this.color.toHsv();
-};
-SimpleColorPicker.prototype.isDark = function () {
-    return this.color.isDark();
-};
-SimpleColorPicker.prototype.isLight = function () {
-    return this.color.isLight();
-};
-SimpleColorPicker.prototype._moveSelectorTo = function (x, y) {
-    this.position.x = clamp(x, 0, this.saturationWidth);
-    this.position.y = clamp(y, 0, this.hueHeight);
-    this.$sbSelector.style.webkitTransform = "translate3d(" + this.position.x + "px, " + this.position.y + "px, 0)";
-};
-SimpleColorPicker.prototype._updateColorFromPosition = function () {
-    this.color = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()({
-        h: this.hue,
-        s: this.position.x / this.saturationWidth,
-        v: 1 - (this.position.y / this.hueHeight)
-    });
-    this._updateColor();
-};
-SimpleColorPicker.prototype._moveHueTo = function (y) {
-    this.huePosition = clamp(y, 0, this.maxHue);
-    this.$hSelector.style.webkitTransform = "translate3d(0," + this.huePosition + "px, 0)";
-};
-SimpleColorPicker.prototype._updateHueFromPosition = function () {
-    var hsvColor = this.color.toHsv();
-    this.hue = 360 * (1 - (this.huePosition / this.maxHue));
-    this.color = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()({ h: this.hue, s: hsvColor.s, v: hsvColor.v });
-    this._updateHue();
-};
-SimpleColorPicker.prototype._updateHue = function () {
-    var hueColor = __WEBPACK_IMPORTED_MODULE_1_tinycolor2___default()({ h: this.hue, s: 1, v: 1 });
-    this.$saturation.style.background = "linear-gradient(to right, #fff, " + hueColor.toHexString() + ")";
-    this._updateColor();
-};
-SimpleColorPicker.prototype._updateColor = function () {
-    this.$sbSelector.style.background = this.color.toHexString();
-    this.$sbSelector.style.borderColor = this.color.isDark() ? '#fff' : '#000';
-    this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_0__events_type__["a" /* CHANGE_COLOR */], this.color.toHexString());
-};
-SimpleColorPicker.prototype._onSaturationMouseDown = function (e) {
-    var sbOffset = this.$saturation.getBoundingClientRect();
-    var xPos = getMousePosition(e).x;
-    var yPos = getMousePosition(e).y;
-    this._moveSelectorTo(xPos - sbOffset.left, yPos - sbOffset.top);
-    this._updateColorFromPosition();
-    this.window.addEventListener('mouseup', this._onSaturationMouseUp);
-    this.window.addEventListener('touchend', this._onSaturationMouseUp);
-    this.window.addEventListener('mousemove', this._onSaturationMouseMove);
-    this.window.addEventListener('touchmove', this._onSaturationMouseMove);
-    e.preventDefault();
-};
-SimpleColorPicker.prototype._onSaturationMouseMove = function (e) {
-    var sbOffset = this.$saturation.getBoundingClientRect();
-    var xPos = getMousePosition(e).x;
-    var yPos = getMousePosition(e).y;
-    this._moveSelectorTo(xPos - sbOffset.left, yPos - sbOffset.top);
-    this._updateColorFromPosition();
-};
-SimpleColorPicker.prototype._onSaturationMouseUp = function () {
-    this.window.removeEventListener('mouseup', this._onSaturationMouseUp);
-    this.window.removeEventListener('touchend', this._onSaturationMouseUp);
-    this.window.removeEventListener('mousemove', this._onSaturationMouseMove);
-    this.window.removeEventListener('touchmove', this._onSaturationMouseMove);
-};
-SimpleColorPicker.prototype._onHueMouseDown = function (e) {
-    var hOffset = this.$hue.getBoundingClientRect();
-    var yPos = getMousePosition(e).y;
-    this._moveHueTo(yPos - hOffset.top);
-    this._updateHueFromPosition();
-    this.window.addEventListener('mouseup', this._onHueMouseUp);
-    this.window.addEventListener('touchend', this._onHueMouseUp);
-    this.window.addEventListener('mousemove', this._onHueMouseMove);
-    this.window.addEventListener('touchmove', this._onHueMouseMove);
-    e.preventDefault();
-};
-SimpleColorPicker.prototype._onHueMouseMove = function (e) {
-    var hOffset = this.$hue.getBoundingClientRect();
-    var yPos = getMousePosition(e).y;
-    this._moveHueTo(yPos - hOffset.top);
-    this._updateHueFromPosition();
-};
-SimpleColorPicker.prototype._onHueMouseUp = function () {
-    this.window.removeEventListener('mouseup', this._onHueMouseUp);
-    this.window.removeEventListener('touchend', this._onHueMouseUp);
-    this.window.removeEventListener('mousemove', this._onHueMouseMove);
-    this.window.removeEventListener('touchmove', this._onHueMouseMove);
-};
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
@@ -937,6 +721,255 @@ function getMousePosition(e) {
 function numberToHex(color) {
     return '#' + ('00000' + (color | 0).toString(16)).substr(-6);
 }
+var SimpleColorPicker = (function (_super) {
+    __WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */](SimpleColorPicker, _super);
+    function SimpleColorPicker(parent, options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, parent, options) || this;
+        _this.color = null;
+        _this.width = 0;
+        _this.widthUnits = 'px';
+        _this.height = 0;
+        _this.heightUnits = 'px';
+        _this.hue = 0;
+        _this.position = { x: 0, y: 0 };
+        _this.huePosition = 0;
+        _this.saturationWidth = 0;
+        _this.hueHeight = 0;
+        _this.maxHue = 0;
+        _this.inputIsNumber = false;
+        _this._onSaturationMouseDown = _this._onSaturationMouseDown.bind(_this);
+        _this._onSaturationMouseMove = _this._onSaturationMouseMove.bind(_this);
+        _this._onSaturationMouseUp = _this._onSaturationMouseUp.bind(_this);
+        _this._onHueMouseDown = _this._onHueMouseDown.bind(_this);
+        _this._onHueMouseMove = _this._onHueMouseMove.bind(_this);
+        _this._onHueMouseUp = _this._onHueMouseUp.bind(_this);
+        _this.window = options.window || window;
+        _this.document = _this.window.document;
+        _this.$el = _this.document.createElement('div');
+        _this.$el.className = 'wechat-picker';
+        _this.$el.innerHTML = "\n      <div class=\"wechat-picker-saturation\">\n        <div class=\"wechat-picker-brightness\"></div>\n        <div class=\"wechat-picker-sbSelector\"></div>\n      </div>\n      <div class=\"wechat-picker-hue\">\n        <div class=\"wechat-picker-hSelector\"></div>\n      </div>";
+        _this.$saturation = _this.$el.querySelector('.wechat-picker-saturation');
+        _this.$hue = _this.$el.querySelector('.wechat-picker-hue');
+        _this.$sbSelector = _this.$el.querySelector('.wechat-picker-sbSelector');
+        _this.$hSelector = _this.$el.querySelector('.wechat-picker-hSelector');
+        _this.$saturation.addEventListener('mousedown', _this._onSaturationMouseDown);
+        _this.$saturation.addEventListener('touchstart', _this._onSaturationMouseDown);
+        _this.$hue.addEventListener('mousedown', _this._onHueMouseDown);
+        _this.$hue.addEventListener('touchstart', _this._onHueMouseDown);
+        if (options.el) {
+            _this.appendTo(options.el);
+        }
+        if (options.background) {
+            _this.setBackgroundColor(options.background);
+        }
+        if (options.widthUnits) {
+            _this.widthUnits = options.widthUnits;
+        }
+        if (options.heightUnits) {
+            _this.heightUnits = options.heightUnits;
+        }
+        _this.setSize(options.width || 220, options.height || 150);
+        _this.setColor(options.color);
+        _this.on(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], options.onChange || function () { });
+        return _this;
+    }
+    SimpleColorPicker.prototype.appendTo = function (el) {
+        if (typeof el === 'string') {
+            document.querySelector(el).appendChild(this.$el);
+        }
+        else {
+            el.appendChild(this.$el);
+        }
+        return this;
+    };
+    ;
+    SimpleColorPicker.prototype.remove = function () {
+        this._onSaturationMouseUp();
+        this._onHueMouseUp();
+        this.$saturation.removeEventListener('mousedown', this._onSaturationMouseDown);
+        this.$saturation.removeEventListener('touchstart', this._onSaturationMouseDown);
+        this.$hue.removeEventListener('mousedown', this._onHueMouseDown);
+        this.$hue.removeEventListener('touchstart', this._onHueMouseDown);
+        if (this.$el.parentNode) {
+            this.$el.parentNode.removeChild(this.$el);
+        }
+    };
+    ;
+    SimpleColorPicker.prototype.setColor = function (color) {
+        if (isNumber(color)) {
+            this.inputIsNumber = true;
+            color = numberToHex(color);
+        }
+        else {
+            this.inputIsNumber = false;
+        }
+        this.color = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()(color);
+        var hsvColor = this.color.toHsv();
+        if (!isNaN(hsvColor.h)) {
+            this.hue = hsvColor.h;
+        }
+        this._moveSelectorTo(this.saturationWidth * hsvColor.s, (1 - hsvColor.v) * this.hueHeight);
+        this._updateHue();
+        return this;
+    };
+    ;
+    SimpleColorPicker.prototype.setSize = function (width, height) {
+        this.width = width;
+        this.height = height;
+        this.$el.style.width = this.width + this.widthUnits;
+        this.$el.style.height = this.height + this.heightUnits;
+        this.saturationWidth = this.width - 30;
+        this.$saturation.style.width = this.saturationWidth + 'px';
+        this.hueHeight = this.height;
+        this.maxHue = this.hueHeight - 2;
+        return this;
+    };
+    ;
+    SimpleColorPicker.prototype.setBackgroundColor = function (color) {
+        if (isNumber(color)) {
+            color = numberToHex(color);
+        }
+        this.$el.style.background = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()(color).toHexString();
+        return this;
+    };
+    ;
+    SimpleColorPicker.prototype.setNoBackground = function () {
+        this.$el.style.padding = '0px';
+        this.$el.style.background = 'none';
+    };
+    ;
+    SimpleColorPicker.prototype.onChange = function () {
+        this.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.getHexString());
+        return this;
+    };
+    ;
+    SimpleColorPicker.prototype.getColor = function () {
+        if (this.inputIsNumber) {
+            return this.getHexNumber();
+        }
+        return this.color.toString();
+    };
+    ;
+    SimpleColorPicker.prototype.getHexString = function () {
+        return this.color.toHexString().toUpperCase();
+    };
+    ;
+    SimpleColorPicker.prototype.getHexNumber = function () {
+        return parseInt(this.color.toHex(), 16);
+    };
+    ;
+    SimpleColorPicker.prototype.getRGB = function () {
+        return this.color.toRgb();
+    };
+    ;
+    SimpleColorPicker.prototype.getHSV = function () {
+        return this.color.toHsv();
+    };
+    ;
+    SimpleColorPicker.prototype.isDark = function () {
+        return this.color.isDark();
+    };
+    ;
+    SimpleColorPicker.prototype.isLight = function () {
+        return this.color.isLight();
+    };
+    ;
+    SimpleColorPicker.prototype._moveSelectorTo = function (x, y) {
+        this.position.x = clamp(x, 0, this.saturationWidth);
+        this.position.y = clamp(y, 0, this.hueHeight);
+        this.$sbSelector.style.webkitTransform = "translate3d(" + this.position.x + "px, " + this.position.y + "px, 0)";
+    };
+    ;
+    SimpleColorPicker.prototype._updateColorFromPosition = function () {
+        this.color = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()({
+            h: this.hue,
+            s: this.position.x / this.saturationWidth,
+            v: 1 - (this.position.y / this.hueHeight)
+        });
+        this._updateColor();
+    };
+    ;
+    SimpleColorPicker.prototype._moveHueTo = function (y) {
+        this.huePosition = clamp(y, 0, this.maxHue);
+        this.$hSelector.style.webkitTransform = "translate3d(0," + this.huePosition + "px, 0)";
+    };
+    ;
+    SimpleColorPicker.prototype._updateHueFromPosition = function () {
+        var hsvColor = this.color.toHsv();
+        this.hue = 360 * (1 - (this.huePosition / this.maxHue));
+        this.color = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()({ h: this.hue, s: hsvColor.s, v: hsvColor.v });
+        this._updateHue();
+    };
+    ;
+    SimpleColorPicker.prototype._updateHue = function () {
+        var hueColor = __WEBPACK_IMPORTED_MODULE_2_tinycolor2___default()({ h: this.hue, s: 1, v: 1 });
+        this.$saturation.style.background = "linear-gradient(to right, #fff, " + hueColor.toHexString() + ")";
+        this._updateColor();
+    };
+    ;
+    SimpleColorPicker.prototype._updateColor = function () {
+        this.$sbSelector.style.background = this.color.toHexString();
+        this.$sbSelector.style.borderColor = this.color.isDark() ? '#fff' : '#000';
+        this.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.color.toHexString());
+    };
+    ;
+    SimpleColorPicker.prototype._onSaturationMouseDown = function (e) {
+        var sbOffset = this.$saturation.getBoundingClientRect();
+        var xPos = getMousePosition(e).x;
+        var yPos = getMousePosition(e).y;
+        this._moveSelectorTo(xPos - sbOffset.left, yPos - sbOffset.top);
+        this._updateColorFromPosition();
+        this.window.addEventListener('mouseup', this._onSaturationMouseUp);
+        this.window.addEventListener('touchend', this._onSaturationMouseUp);
+        this.window.addEventListener('mousemove', this._onSaturationMouseMove);
+        this.window.addEventListener('touchmove', this._onSaturationMouseMove);
+        e.preventDefault();
+    };
+    ;
+    SimpleColorPicker.prototype._onSaturationMouseMove = function (e) {
+        var sbOffset = this.$saturation.getBoundingClientRect();
+        var xPos = getMousePosition(e).x;
+        var yPos = getMousePosition(e).y;
+        this._moveSelectorTo(xPos - sbOffset.left, yPos - sbOffset.top);
+        this._updateColorFromPosition();
+    };
+    ;
+    SimpleColorPicker.prototype._onSaturationMouseUp = function () {
+        this.window.removeEventListener('mouseup', this._onSaturationMouseUp);
+        this.window.removeEventListener('touchend', this._onSaturationMouseUp);
+        this.window.removeEventListener('mousemove', this._onSaturationMouseMove);
+        this.window.removeEventListener('touchmove', this._onSaturationMouseMove);
+    };
+    ;
+    SimpleColorPicker.prototype._onHueMouseDown = function (e) {
+        var hOffset = this.$hue.getBoundingClientRect();
+        var yPos = getMousePosition(e).y;
+        this._moveHueTo(yPos - hOffset.top);
+        this._updateHueFromPosition();
+        this.window.addEventListener('mouseup', this._onHueMouseUp);
+        this.window.addEventListener('touchend', this._onHueMouseUp);
+        this.window.addEventListener('mousemove', this._onHueMouseMove);
+        this.window.addEventListener('touchmove', this._onHueMouseMove);
+        e.preventDefault();
+    };
+    ;
+    SimpleColorPicker.prototype._onHueMouseMove = function (e) {
+        var hOffset = this.$hue.getBoundingClientRect();
+        var yPos = getMousePosition(e).y;
+        this._moveHueTo(yPos - hOffset.top);
+        this._updateHueFromPosition();
+    };
+    ;
+    SimpleColorPicker.prototype._onHueMouseUp = function () {
+        this.window.removeEventListener('mouseup', this._onHueMouseUp);
+        this.window.removeEventListener('touchend', this._onHueMouseUp);
+        this.window.removeEventListener('mousemove', this._onHueMouseMove);
+        this.window.removeEventListener('touchmove', this._onHueMouseMove);
+    };
+    ;
+    return SimpleColorPicker;
+}(__WEBPACK_IMPORTED_MODULE_3__component__["a" /* default */]));
 /* harmony default export */ __webpack_exports__["a"] = (SimpleColorPicker);
 
 
@@ -1938,23 +1971,29 @@ var Event = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_css__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__component__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__events_type__ = __webpack_require__(0);
+
+
 
 
 var prefix = '__wechat__picker__color__';
 var uuid = 0;
-var RecentComponent = (function () {
+var RecentComponent = (function (_super) {
+    __WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */](RecentComponent, _super);
     function RecentComponent(parent) {
-        this.maxColorLen = 8;
-        this.storagePrefix = "" + prefix + (uuid += 1);
-        this.dom = document.createElement('div');
-        this.$parent = parent;
-        this.dom.className = 'wechat-recent-color';
-        this.dom.addEventListener('click', this.getRecentColor.bind(this));
-        this.render();
-        this.$parent.event.on(__WEBPACK_IMPORTED_MODULE_1__events_type__["e" /* UPDATE_RECENT */], this.updateRecent.bind(this));
+        var _this = _super.call(this, parent) || this;
+        _this.maxColorLen = 8;
+        _this.storagePrefix = "" + prefix + (uuid += 1);
+        _this.dom = document.createElement('div');
+        _this.dom.className = 'wechat-recent-color';
+        _this.dom.addEventListener('click', _this.getRecentColor.bind(_this));
+        _this.render();
+        _this.on(__WEBPACK_IMPORTED_MODULE_3__events_type__["e" /* UPDATE_RECENT */], _this.updateRecent.bind(_this));
+        return _this;
     }
     RecentComponent.prototype.setRecentColor = function (color) {
         var ls = window.localStorage;
@@ -1977,10 +2016,10 @@ var RecentComponent = (function () {
         var target = e.target;
         if (target.tagName === 'LI') {
             if (target.classList.contains('wechat-recent-item')) {
-                this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["d" /* GET_COLOR */], target.getAttribute('data-color'));
+                this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_3__events_type__["d" /* GET_COLOR */], target.getAttribute('data-color'));
             }
             else {
-                this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["c" /* CLEAR_COLOR */]);
+                this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_3__events_type__["c" /* CLEAR_COLOR */]);
             }
         }
     };
@@ -2002,10 +2041,10 @@ var RecentComponent = (function () {
     };
     RecentComponent.prototype.destroy = function () {
         this.dom.removeEventListener('click', this.getRecentColor.bind(this));
-        this.$parent.event.off(__WEBPACK_IMPORTED_MODULE_1__events_type__["e" /* UPDATE_RECENT */], this.updateRecent.bind(this));
+        this.off(__WEBPACK_IMPORTED_MODULE_3__events_type__["e" /* UPDATE_RECENT */], this.updateRecent.bind(this));
     };
     return RecentComponent;
-}());
+}(__WEBPACK_IMPORTED_MODULE_2__component__["a" /* default */]));
 /* harmony default export */ __webpack_exports__["a"] = (RecentComponent);
 
 
@@ -2059,19 +2098,25 @@ exports.push([module.i, ".wechat-recent-color {\n  padding: 0 0 12px;\n}\n.wecha
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_css__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__component__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__events_type__ = __webpack_require__(0);
 
 
-var BaseComponent = (function () {
+
+
+var BaseComponent = (function (_super) {
+    __WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */](BaseComponent, _super);
     function BaseComponent(parent) {
-        this.baseColorArr = ['ffffff', 'ffd7d5', 'ffdaa9', 'fffed5', 'd4fa00', '73fcd6', 'a5c8ff', 'ffacd5', 'ff7faa', 'd6d6d6', 'ffacaa', 'ffb995', 'fffb00', '73fa79', '00fcff', '78acfe', 'd84fa9', 'ff4f79', 'b2b2b2', 'd7aba9', 'ff6827', 'ffda51', '00d100', '00d5ff', '0080ff', 'ac39ff', 'ff2941', '888888', '7a4442', 'ff4c00', 'ffa900', '3da742', '3daad6', '0052ff', '7a4fd6', 'd92142', '000000', '7b0c00', 'ff4c41', 'd6a841', '407600', '007aaa', '021eaa', '797baa', 'ab1942'];
-        this.dom = document.createElement('div');
-        this.$parent = parent;
-        this.dom.className = 'wechat-picker-box';
-        this.dom.innerHTML = "<p>\n                          <i data-type=\"base\">\u57FA\u672C\u8272</i><i data-type=\"more\">\u66F4\u591A\u989C\u8272</i>\n                        </p>\n                        <div class=\"wechat-base-wrapper\">\n                          " + this.genBaseList() + "\n                        </div>";
-        this.dom.addEventListener('click', this.clickHandler.bind(this));
+        var _this = _super.call(this, parent) || this;
+        _this.baseColorArr = ['ffffff', 'ffd7d5', 'ffdaa9', 'fffed5', 'd4fa00', '73fcd6', 'a5c8ff', 'ffacd5', 'ff7faa', 'd6d6d6', 'ffacaa', 'ffb995', 'fffb00', '73fa79', '00fcff', '78acfe', 'd84fa9', 'ff4f79', 'b2b2b2', 'd7aba9', 'ff6827', 'ffda51', '00d100', '00d5ff', '0080ff', 'ac39ff', 'ff2941', '888888', '7a4442', 'ff4c00', 'ffa900', '3da742', '3daad6', '0052ff', '7a4fd6', 'd92142', '000000', '7b0c00', 'ff4c41', 'd6a841', '407600', '007aaa', '021eaa', '797baa', 'ab1942'];
+        _this.dom = document.createElement('div');
+        _this.dom.className = 'wechat-picker-box';
+        _this.dom.innerHTML = "<p>\n                          <i data-type=\"base\">\u57FA\u672C\u8272</i><i data-type=\"more\">\u66F4\u591A\u989C\u8272</i>\n                        </p>\n                        <div class=\"wechat-base-wrapper\">\n                          " + _this.genBaseList() + "\n                        </div>";
+        _this.dom.addEventListener('click', _this.clickHandler.bind(_this));
+        return _this;
     }
     BaseComponent.prototype.genBaseList = function () {
         var span = function (color) { return "<span data-color=\"" + color + "\" style=\"background: " + color + "\"></span>"; };
@@ -2089,18 +2134,18 @@ var BaseComponent = (function () {
     BaseComponent.prototype.switchTab = function (type) {
         if (!type)
             return;
-        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["b" /* CHANGE_TAB */], type === 'base' ? 'base-color' : 'more-color');
+        this.emit(__WEBPACK_IMPORTED_MODULE_3__events_type__["b" /* CHANGE_TAB */], type === 'base' ? 'base-color' : 'more-color');
     };
     BaseComponent.prototype.selectColor = function (target) {
         var color = target.getAttribute('data-color');
-        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["e" /* UPDATE_RECENT */], color);
-        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["d" /* GET_COLOR */], color);
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_3__events_type__["e" /* UPDATE_RECENT */], color);
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_3__events_type__["d" /* GET_COLOR */], color);
     };
     BaseComponent.prototype.destroy = function () {
         this.dom.removeEventListener('click', this.clickHandler.bind(this));
     };
     return BaseComponent;
-}());
+}(__WEBPACK_IMPORTED_MODULE_2__component__["a" /* default */]));
 /* harmony default export */ __webpack_exports__["a"] = (BaseComponent);
 
 
@@ -2154,23 +2199,29 @@ exports.push([module.i, ".wechat-picker-box {\n  padding: 0 0 12px;\n  border-bo
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__events_type__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_css__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__component__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__events_type__ = __webpack_require__(0);
 
 
-var Toolbar = (function () {
+
+
+var Toolbar = (function (_super) {
+    __WEBPACK_IMPORTED_MODULE_0_tslib__["a" /* __extends */](Toolbar, _super);
     function Toolbar(parent) {
-        this.dom = document.createElement('div');
-        this.$parent = parent;
-        this.dom.className = 'wechat-picker-toolbar';
-        this.render();
-        this.i = this.dom.querySelector('i');
-        this.input = this.dom.querySelector('input');
-        this.button = this.dom.querySelector('button');
-        this.$parent.event.on(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.changeColor.bind(this));
-        this.button.addEventListener('click', this.clickButton.bind(this));
-        this.input.addEventListener('input', this.onChange.bind(this));
+        var _this = _super.call(this, parent) || this;
+        _this.dom = document.createElement('div');
+        _this.dom.className = 'wechat-picker-toolbar';
+        _this.render();
+        _this.i = _this.dom.querySelector('i');
+        _this.input = _this.dom.querySelector('input');
+        _this.button = _this.dom.querySelector('button');
+        _this.on(__WEBPACK_IMPORTED_MODULE_3__events_type__["a" /* CHANGE_COLOR */], _this.changeColor.bind(_this));
+        _this.button.addEventListener('click', _this.clickButton.bind(_this));
+        _this.input.addEventListener('input', _this.onChange.bind(_this));
+        return _this;
     }
     Toolbar.prototype.changeColor = function (color) {
         this.i.style.background = color;
@@ -2181,8 +2232,8 @@ var Toolbar = (function () {
         if (!/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/.test(color)) {
             return;
         }
-        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["e" /* UPDATE_RECENT */], color);
-        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_1__events_type__["d" /* GET_COLOR */], color);
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_3__events_type__["e" /* UPDATE_RECENT */], color);
+        this.$parent.event.emit(__WEBPACK_IMPORTED_MODULE_3__events_type__["d" /* GET_COLOR */], color);
     };
     Toolbar.prototype.onChange = function () {
         this.i.style.backgroundColor = "#" + this.input.value;
@@ -2193,10 +2244,10 @@ var Toolbar = (function () {
     Toolbar.prototype.destroy = function () {
         this.button.removeEventListener('click', this.clickButton.bind(this));
         this.input.removeEventListener('input', this.onChange.bind(this));
-        this.$parent.event.off(__WEBPACK_IMPORTED_MODULE_1__events_type__["a" /* CHANGE_COLOR */], this.changeColor.bind(this));
+        this.off(__WEBPACK_IMPORTED_MODULE_3__events_type__["a" /* CHANGE_COLOR */], this.changeColor.bind(this));
     };
     return Toolbar;
-}());
+}(__WEBPACK_IMPORTED_MODULE_2__component__["a" /* default */]));
 /* harmony default export */ __webpack_exports__["a"] = (Toolbar);
 
 
@@ -2243,6 +2294,299 @@ exports = module.exports = __webpack_require__(1)(undefined);
 exports.push([module.i, "\n.wechat-picker-toolbar {\n  padding: 15px 0 0;\n}\n\n.wechat-picker-toolbar i {\n  float: left;\n  width: 24px;\n  height: 24px;\n  margin-right: 6px;\n  background: #000;\n  border: 1px solid #e7e7eb;\n  cursor: pointer;\n}\n\n.wechat-picker-toolbar div {\n  position: relative;\n  display: inline-block;\n  width: 98px;\n  height: 24px;\n  line-height: 24px;\n  padding: 0 5px;\n  border: 1px solid #e7e7eb;\n}\n\n.wechat-picker-toolbar div span {\n  position: absolute;\n  top: 0;\n  left: 4px;\n  font-size: 14px;\n  color: #222;\n  font-weight: 400;\n}\n\n.wechat-picker-toolbar div input {\n  outline: 0;\n  width: 60px;\n  border: 0;\n  margin: 0 0 0 10px;\n  color: #222;\n  height: 22px;\n  line-height: 22px;\n  font-size: 14px;\n}\n\n.wechat-picker-toolbar button {\n  float: right;\n  margin-left: 6px;\n  padding: 0 20px;\n  height: 26px;\n  line-height: 26px;\n  border-radius: 3px;\n  -moz-border-radius: 3px;\n  -webkit-border-radius: 3px;\n  font-size: 14px;\n  cursor: pointer;\n  border: 1px solid #e7e7eb;\n  background-color: #fff;\n  color: #222;\n  outline: 0;\n}\n\n.wechat-picker-toolbar button:hover {\n  border: 1px solid #dadbe0;\n}", ""]);
 
 // exports
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = __extends;
+/* unused harmony export __assign */
+/* unused harmony export __rest */
+/* unused harmony export __decorate */
+/* unused harmony export __param */
+/* unused harmony export __metadata */
+/* unused harmony export __awaiter */
+/* unused harmony export __generator */
+/* unused harmony export __exportStar */
+/* unused harmony export __values */
+/* unused harmony export __read */
+/* unused harmony export __spread */
+/* unused harmony export __await */
+/* unused harmony export __asyncGenerator */
+/* unused harmony export __asyncDelegator */
+/* unused harmony export __asyncValues */
+/* unused harmony export __makeTemplateObject */
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+var extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p]; };
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+var __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+    }
+    return t;
+};
+function __rest(s, e) {
+    var t = {};
+    for (var p in s)
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++)
+            if (e.indexOf(p[i]) < 0)
+                t[p[i]] = s[p[i]];
+    return t;
+}
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+        r = Reflect.decorate(decorators, target, key, desc);
+    else
+        for (var i = decorators.length - 1; i >= 0; i--)
+            if (d = decorators[i])
+                r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); };
+}
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+        return Reflect.metadata(metadataKey, metadataValue);
+}
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try {
+            step(generator.next(value));
+        }
+        catch (e) {
+            reject(e);
+        } }
+        function rejected(value) { try {
+            step(generator["throw"](value));
+        }
+        catch (e) {
+            reject(e);
+        } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function () { if (t[0] & 1)
+            throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f)
+            throw new TypeError("Generator is already executing.");
+        while (_)
+            try {
+                if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done)
+                    return t;
+                if (y = 0, t)
+                    op = [0, t.value];
+                switch (op[0]) {
+                    case 0:
+                    case 1:
+                        t = op;
+                        break;
+                    case 4:
+                        _.label++;
+                        return { value: op[1], done: false };
+                    case 5:
+                        _.label++;
+                        y = op[1];
+                        op = [0];
+                        continue;
+                    case 7:
+                        op = _.ops.pop();
+                        _.trys.pop();
+                        continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                            _ = 0;
+                            continue;
+                        }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                            _.label = op[1];
+                            break;
+                        }
+                        if (op[0] === 6 && _.label < t[1]) {
+                            _.label = t[1];
+                            t = op;
+                            break;
+                        }
+                        if (t && _.label < t[2]) {
+                            _.label = t[2];
+                            _.ops.push(op);
+                            break;
+                        }
+                        if (t[2])
+                            _.ops.pop();
+                        _.trys.pop();
+                        continue;
+                }
+                op = body.call(thisArg, _);
+            }
+            catch (e) {
+                op = [6, e];
+                y = 0;
+            }
+            finally {
+                f = t = 0;
+            }
+        if (op[0] & 5)
+            throw op[1];
+        return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+function __exportStar(m, exports) {
+    for (var p in m)
+        if (!exports.hasOwnProperty(p))
+            exports[p] = m[p];
+}
+function __values(o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m)
+        return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length)
+                o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+}
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m)
+        return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+            ar.push(r.value);
+    }
+    catch (error) {
+        e = { error: error };
+    }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"]))
+                m.call(i);
+        }
+        finally {
+            if (e)
+                throw e.error;
+        }
+    }
+    return ar;
+}
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator)
+        throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n])
+        i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try {
+        step(g[n](v));
+    }
+    catch (e) {
+        settle(q[0][3], e);
+    } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length)
+        resume(q[0][0], q[0][1]); }
+}
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { if (o[n])
+        i[n] = function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; }; }
+}
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator)
+        throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator];
+    return m ? m.call(o) : typeof __values === "function" ? __values(o) : o[Symbol.iterator]();
+}
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) {
+        Object.defineProperty(cooked, "raw", { value: raw });
+    }
+    else {
+        cooked.raw = raw;
+    }
+    return cooked;
+}
+;
+
+
+/***/ }),
+/* 20 */,
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var Component = (function () {
+    function Component(parent, props) {
+        if (props === void 0) { props = {}; }
+        this.$parent = parent;
+        this.props = props;
+    }
+    Component.prototype.on = function (type, fn) {
+        this.$parent.event['on'].call(this.$parent.event, type, fn);
+    };
+    Component.prototype.off = function (type, fn) {
+        return this.$parent.event['off'].call(this.$parent.event, type, fn);
+    };
+    Component.prototype.emit = function (type) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        return (_a = this.$parent.event['emit']).call.apply(_a, [this.$parent.event, type].concat(args));
+        var _a;
+    };
+    return Component;
+}());
+/* harmony default export */ __webpack_exports__["a"] = (Component);
 
 
 /***/ })

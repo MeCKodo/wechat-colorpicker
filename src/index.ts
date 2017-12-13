@@ -40,9 +40,8 @@ class WeChatColorPicker {
 
     // 下一个tick再初始化
     setTimeout(() => {
-      this.picker = new Picker({
+      this.picker = new Picker(this, {
         color: '#000',
-        parent: this,
       });
       const el = this.domWrapper.querySelector('.wechat-picker-box')!;
       this.picker.appendTo(el);

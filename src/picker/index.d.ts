@@ -5,11 +5,10 @@ export interface ColorPickerOptions {
   width?: number;
   height?: number;
   onChange?(color):void;
-  parent?;
 }
 
 export interface ColorPicker {
-  new (options?: ColorPickerOptions): ColorPicker;
+  new (parent, options?: ColorPickerOptions): ColorPicker;
 
   appendTo(domElement: HTMLElement | String): void;
 

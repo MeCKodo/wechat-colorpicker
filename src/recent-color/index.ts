@@ -1,23 +1,23 @@
 import './style.css';
+import Component from '../component';
 import { UPDATE_RECENT, GET_COLOR, CLEAR_COLOR } from '../events-type';
 
 const prefix = '__wechat__picker__color__';
 let uuid = 0;
 
-class RecentComponent {
+class RecentComponent extends Component {
   private maxColorLen: number = 8;
   private storagePrefix: string = `${prefix}${uuid += 1}`;
 
   public dom: HTMLElement = document.createElement('div');
-  public $parent;
 
   constructor(parent) {
-    this.$parent = parent;
+    super(parent);
     this.dom.className = 'wechat-recent-color';
     this.dom.addEventListener('click', this.getRecentColor.bind(this));
 
     this.render();
-    this.$parent.event.on(UPDATE_RECENT, this.updateRecent.bind(this));
+    this.on(UPDATE_RECENT, this.updateRecent.bind(this));
   }
 
   private setRecentColor(color) {
@@ -78,7 +78,7 @@ class RecentComponent {
 
   public destroy() {
     this.dom.removeEventListener('click', this.getRecentColor.bind(this));
-    this.$parent.event.off(UPDATE_RECENT, this.updateRecent.bind(this));
+    this.off(UPDATE_RECENT, this.updateRecent.bind(this));
   }
 
 }
