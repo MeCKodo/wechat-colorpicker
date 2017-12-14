@@ -6,10 +6,17 @@
 
 [demo](https://meckodo.github.io/wechat-colorpicker/)
 
+## 安装
+
+```bash
+npm i wechat-colorpicker -S
+```
 
 ## 栗子
 
 ```javascript
+import WeChatColorPicker from 'wechat-colorpicker';
+
 const example = new WeChatColorPicker({
   el: '#container', // 插入的dom
   click(color) {
