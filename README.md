@@ -18,12 +18,9 @@ npm i wechat-colorpicker -S
 import WeChatColorPicker from 'wechat-colorpicker';
 
 const example = new WeChatColorPicker({
-  el: '#container', // 插入的dom
+  el: '#container', // selector  底层采用了querySelector
   click(color) {
     console.log(`获得的基础颜色是${color}`);
-  },
-  change(color) {
-    // picker 选择触发 这个方法可选
   },
   clear() {
     console.log('清除');

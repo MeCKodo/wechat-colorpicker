@@ -10,7 +10,6 @@ interface Options {
   el: string;
   click(color: string): void;
   clear(): void;
-  change?(color: string): void;
 }
 
 class WeChatColorPicker {
